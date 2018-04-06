@@ -62,3 +62,43 @@ Widely used language because, in addition to the high-level features necessary f
 7. "Linker" combines the object file with the necessary "library" routines.
 8. "Executable file" contains machine language instrucions or executable code and is ready to run on computer.
 
+***
+
+## Programming Process
+
+1. Define What the Program is to do.
+2. Visualize the program running on the computer.
+3. Use design tools to create a model of the program.
+- Hierarchy Charts: Begins with the overall task and then refines it into smaller subtasks.
+- Flowcharts: Show the logical flow of a program.
+- Pseudocode: Similar to natural language.
+```
+High Level:
+Get Payroll Data
+Calculate Gross Pay
+Display Gross Pay
+```
+
+```
+Low Level:
+Ask the user to input the number of hours worked
+User input "hours"
+Ask the user to input the hourly pay rate
+User input "rate"
+Set "pay" equal to "hours" times "rate"
+Display "pay"
+```
+
+4. Check the model for logical errors.
+5. Write the program source code.
+6. Compile the source code.
+7. Correct ant syntax errors found during compilation.
+8. Link the program to create an executable file.
+9. Run the program using test data for input.
+10. Correct any errors found while running the program.
+11. Validate the results of the program.
+
+***
+
+## Source 
+[Starting Out With C++: Early Objects](https://www.amazon.com/Starting-Out-Early-Objects-Student/dp/0134379314)
