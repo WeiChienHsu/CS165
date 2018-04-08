@@ -11,7 +11,10 @@
 #include <iostream>
 #include <cstdlib> // srand(), rand(), exit()
 #include <time.h> // time() 
+
 using namespace std;
+
+#define TIME
 
 int main() {
 
