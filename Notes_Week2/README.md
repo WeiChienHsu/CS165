@@ -111,6 +111,31 @@ int
 static_cast<DataType>()
 ```
 
+### Name Constants
+```c
+const double INTEREST_RATE = 0.069;
+```
+***
+
+# Formatting Output (iomanip)
+
+## setprecision 
+- 小數點後幾位
+
+## setw
+- 一共佔據幾位數
+
+***
+# Character and String
+
+Strings were stored as a set of individual characters. A group of contiguous 1-byte memory cells was set up to hold them, with each cell holding just one charactor of the string. A group of memory cells like this is called an array.
+```c
+char word[10] = "hello";
+```
+
+Using string objects and C-strings is different. This is because the string class includes functions and operatiors that save the programmer having to worry about many of the details of working with strings. When using C-string, it is the reponsibility of the programmer to handle these things.
+
+
 
 ***
 
