@@ -51,3 +51,5 @@
 ### Other
 - Do not use any global variables.
 - There are several numeric types available.  For the assignments, use int for integer types and double for floating point types.
+
+## Notes
