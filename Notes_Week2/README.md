@@ -15,6 +15,104 @@
 5. Reflect on how you arrived at your solution.  What worked and what didn't?  How can this experience help you solve future problems?
 
 ***
+# Assignmnet 2a
+Wei-Chien Hsu 
+CS-165: ACCELERATED TO COMP SCI
+Assignment 2a project plan
+
+## Testing Plan
+
+
+## Stepwise Refinement
+1.	Asks the user how many integers they would like to enter
+•	Print out “How many integers would you like to enter?” for user in console.
+•	There is a variable numberOfInt to record user’s input.
+•	User could input an integer (assume they will enter a number >= 1)
+•	numberOfInt equals to user’s input
+
+2.	Prompt the user to enter that many integers
+•	Base on the numberOfInt to print out “Please enter ___ integers.” in console.
+
+3.	User could Input number
+•	Base on the numberOfInt to ask that many times for user inputs their number.
+•	We should track the current largest and smallest numbers by upgrading both variables maxInt and minInt.
+- i.	Save the user input in a variable currentInt.
+- ii.	We should initialize maxInt and minInt by the first input.
+- iii.	After the first input, we should compare each new currentInt with the maxInt and minInt.
+- iv.	If currentInt is greater than maxInt, upgrade the value for maxInt as currentInt.
+- v.	If currentInt is smaller than minInt, upgrade the value for minInt as currentInt.
+- vi.	Since we need to limit the times user input, it needs to let numberOfInt minus one each time when user enter the value.
+- vii.	While numberOfInt is not larger than 0, stop asking user to enter a new Integer.
+
+4.	Display the largest and smallest of those numbers 
+•	Print out “min: “ with minInt for user in console.
+•	Print out “max: ” with maxInt for user in console.
+•	End the program return 0.
+
+## Pseudocode
+```
+Print out “How many integers would you like to enter?” to user.
+Get the number of Integer that user would like to enter (Below as number) from user.
+Print out “Please enter (number) integers.” to user.
+Get the first current number from user
+Minus 1 to the number
+Set the min number to the current number
+Set the max number to the current number
+While number > 0
+	Minus 1 to the number
+	Get the current number from user
+	If current number > max number
+		Set max number to the current number
+	If current number < min number
+		Set min number the to the current number
+Print out “min:  “ and min number to user
+Print out “max:  “ and max number to user
+```
+- 可以改進的地方: 使用一樣的number or integer, 固定在User Input之後再減1
+
+## Flowchart 
+![demo](images/demo.png)
+
+***
+
+## Double vs Float
+
+double精度高，有效数字15-16位，float精度低，有效数字6-7位，但是double消耗的内存是float的两倍，运算速度比float慢得多，建议能用float保证精度的就用float，少用double。
+
+- 有些编译器 float的有效数字位是 8位 , 有些有效数字位是 7位
+- 有些编译器double的有效数字位是 15位, 有些是 16位
+
+无论是float还是double，在内存中的存储主要分成三部分，分别是：
+
+1. 符号位（Sign）: 0代表正数，1代表负数
+2. 指数位（Exponent）: 用于存储科学计数法中的指数部分，并且采用移位存储方式
+3. 尾数位（Mantissa）: 用于存储尾数部分
+
+## Data Type Ranking (Concersion)
+
+```
+long double
+double
+float
+unsigned long long int
+long long int
+unsigned long int
+long int
+unsigned int
+int
+```
+
+- Rule1: char, short, and unsigned short values are automatically promoted to int values.
+- Rule2: When an operator works with two values of different types, the lower-ranking value is promoted to the type of the higher-ranking value. (int * double -> double)
+- Rule3: When the final value of an expression is assigned to a variable, it will be converted to the data typeif that variables.
+
+## Type Casting
+```c
+static_cast<DataType>()
+```
+
+
+***
 
 ## Random Number - rand() / srand()
 
