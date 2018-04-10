@@ -27,13 +27,13 @@ float fallDistance(float fallingTime) {
   return distance;
 }
 
-int main() {
-  float distance, fallingTime;
+// int main() {
+//   float distance, fallingTime;
 
-  cin >> fallingTime;
-  distance = fallDistance(fallingTime);
+//   cin >> fallingTime;
+//   distance = fallDistance(fallingTime);
 
-  cout << "The distance is: " << distance << endl;
-  return 0;
-}
+//   cout << "The distance is: " << distance << endl;
+//   return 0;
+// }
 

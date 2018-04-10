@@ -406,3 +406,43 @@ if(inputFile.fail()) {
   // Process the file
 }
 ```
+
+***
+
+# Reference Variables as Parameters
+A reference variable is an alias for another variable. Instead of having its owwn memory location for storing data, it accesses the memory location of another variable. Any change made to the reference variable's data is actually made to the data stored in the memory location of the other variable.
+
+Any change made to the parameter is actually made to the variable in the calling function.
+```c
+viod doubleNum(int &refVar) {
+  refVar *= 2;
+}
+```
+
+Using reference variables as function parameters is especially useful when the purpose of the function is to accept input values to be stored in variables of the calling function. Another use of reference paramaters is when multiple values must be sent back from the function. (If the function is computng and sending back a single value, it is generally considered more appropriate to use a value-returning function)
+
+- When data values being input in a function need to be known by the calling function
+- When a function must change exostnig values in the calling function.
+- When a file stream object is passed to a function.
+
+## Read File by sending as parameter
+It is possible to pass an opened file to a function and have it read just part of the file each time it is called.
+
+```c
+ifstream inputFile;
+inputFile.open(FILE_NAME);
+if(inputFile.fail()) {
+    // Error Message
+} else {
+  while(readData(inputFile)) {
+    // Do something
+  }
+}
+
+bool readData(ifstream& someFile) {
+  bool foundData = someFile;
+  return foundData
+}
+```
+
+***
