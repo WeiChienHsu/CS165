@@ -19,3 +19,52 @@
 
                  In the end, close both the input and output files.
 *********************************************************************/
+
+#include <iostream>
+#include <fstream> // ofstream, ifstream
+#include <string>
+
+using namespace std;
+
+int main() {
+  
+  string fileNmae;
+  int count = 0,
+      number;
+  const string NEW_FILE_NAME = "sum.txt";
+
+  cout << "Please enter your filename." << endl;
+  // User enter the filename
+  cin >> fileNmae;
+
+  // Create a File Stream Object for input file and Open the file 
+  ifstream inputFile;
+  inputFile.open(fileNmae);
+
+  if(inputFile) {
+    // Read the numbers from the opened file and add together all the integers
+    while(inputFile >> number) {
+      // Get a new value of count
+      count += number;
+    }
+  } else {
+    // Fail to access the file, display an error message
+    cout << "could not access file." << endl;
+  }
+
+  // Create a File Stream Object for output file
+  // Open the file and if the file doesn't exist, it will automatically create a new file
+  // Name that file "sum.txt" 
+  ofstream outputFile;
+  outputFile.open(NEW_FILE_NAME);
+
+  // Write the count result into Output file
+  outputFile << count;
+
+  // Close both outputFile and inputFile
+  outputFile.close();
+  inputFile.close();
+
+  cout << "result written to sum.txt" << endl;
+  return 0;
+}
