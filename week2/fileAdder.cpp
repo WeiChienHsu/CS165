@@ -47,24 +47,26 @@ int main() {
       // Get a new value of count
       count += number;
     }
+
+    // Create a File Stream Object for output file
+    // Open the file and if the file doesn't exist, it will automatically create a new file
+    // Name that file "sum.txt" 
+    ofstream outputFile;
+    outputFile.open(NEW_FILE_NAME);
+
+    // Write the count result into Output file
+    outputFile << count;
+
+    // Close both outputFile and inputFile
+    outputFile.close();
+    inputFile.close();
+
+    cout << "result written to sum.txt" << endl;
+
   } else {
     // Fail to access the file, display an error message
-    cout << "could not access file." << endl;
+    cout << "could not access file" << endl;
   }
 
-  // Create a File Stream Object for output file
-  // Open the file and if the file doesn't exist, it will automatically create a new file
-  // Name that file "sum.txt" 
-  ofstream outputFile;
-  outputFile.open(NEW_FILE_NAME);
-
-  // Write the count result into Output file
-  outputFile << count;
-
-  // Close both outputFile and inputFile
-  outputFile.close();
-  inputFile.close();
-
-  cout << "result written to sum.txt" << endl;
   return 0;
 }
