@@ -1,7 +1,8 @@
 /*********************************************************************
 ** Author:       Wei-Chien Hsu
 ** Date:         04/09/18
-** Description:  Program reads in the name of the file, and then tries to open it.
+** Description:  Program prints "Please enter your filename." and reads 
+                 in the name of the file, and then tries to open it.
 
                  If the input file is there and can be opened, the program should 
                  read the list of integers in the file, which will have one integer 
