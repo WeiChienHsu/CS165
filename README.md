@@ -52,4 +52,5 @@
 - Do not use any global variables.
 - There are several numeric types available.  For the assignments, use int for integer types and double for floating point types.
 
-## Notes
+## Note about different C++ standards
+The text for this course introduces some features that are new in the C++11 standard, such as the "auto" keyword in chapter 2.  When you compile a program on the school server using g++, it uses the C++98 standard by default.  In order for the compiler to recognize features from the C++11 standard, you have to add "-std=c++0x" to the compile command.  For example, instead of entering "g++ myProgram.cpp -o executableName", you would enter "g++ -std=c++0x myProgram.cpp -o executableName".

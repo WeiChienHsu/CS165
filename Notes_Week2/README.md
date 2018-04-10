@@ -135,7 +135,67 @@ char word[10] = "hello";
 
 Using string objects and C-strings is different. This is because the string class includes functions and operatiors that save the programmer having to worry about many of the details of working with strings. When using C-string, it is the reponsibility of the programmer to handle these things.
 
+# Enumerated Data Types
+An enumerated data type in C++ is a programmer-defined data type whose legal values are a set of named integer constants.
+```c
+enum Roster {Tom, Sharon, Bill, Teresa, Johm };
+```
+What are their values? The compiler sets the first enumerators to 0, the next ont to 1 and so on.
 
+It's important to realize that the example enum statement does not actually create any variables. It just defines the data type. When we later create variables of this data type, this is what they will look like.
+
+```c
+Roster studnet;
+student = Sharon;
+```
+
+Notice in thes two examples that there are no quotation marks around Sharon becuase it is a named constant, not a string literal.
+
+Remember if you do assign values to the enumerated symbols, they must be integers.
+
+```cpp
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+enum Roster { Tom = 1, Sharon, Bill, Teresa, John}; 
+// Sharon - John wil be assigned default values 2-5
+// Tom = 1 (Tom not a string anymore)
+
+int main() {
+  int who;
+  cout << "This program will let you know people's birthday," << endl;
+  cout << setw(10) << "Tom - 1" << endl;
+  cout << setw(10) << "Sharon - 2" << endl;
+  cout << setw(10) << "Bill - 3" << endl;
+  cout << setw(10) << "Teresa - 4" << endl;
+  cout << setw(10) << "John - 5" << endl;
+  cout << "Enter 1 - 5 to know: " << endl;
+  cin >> who;
+
+  switch(who){
+    case Tom:
+      cout << "Tom's birthday is on 5/3" << endl;
+      break;
+    case Sharon:
+      cout << "Sharon's birthday is on 5/3" << endl;
+      break;
+    case Bill:
+      cout << "Bill's birthday is on 5/3" << endl;
+      break;
+    case Teresa:
+      cout << "Teresa's birthday is on 5/3" << endl;
+      break;
+    case John:
+      cout << "John's birthday is on 5/3" << endl;
+      break;
+    default:
+      cout << "Please enter a right number" << endl;
+  }
+
+  return 0;
+}
+```
 
 ***
 
@@ -229,3 +289,120 @@ Note that the C standard defines EXIT_SUCCESS and EXIT_FAILURE to return termina
 
 0 and EXIT_SUCCESS are the values specified by the standard to indicate successful termination, however, only EXIT_FAILURE is the standard value for returning unsucessful termination. 1 is used for the same in many implementations though.
 
+***
+
+# Readfile
+在C++中，有一个stream这个类，所有的I/O都以这个“流”类为基础的，包括我们要认识的文件I/O，stream这个类有两个重要的运算符：
+
+- c++的文件流处理其实很简单，前提是你能够理解它。
+- 文件流本质是利用了一个buffer中间层。有点类似标准输出和标准输入一样。
+- c++ IO的设计保证IO效率，同时又兼顾封装性和易用性。
+
+fstream提供了三个类，用来实现c++对文件的操作。（文件的创建，读写）。
+
+- ifstream -- 从已有的文件读
+- ofstream -- 向文件写内容
+- fstream -- 打开文件供读写
+
+```
+ofstream: Stream object can be used to create a file and write data to it.
+ifstream: Stream object can be used to open an existing file and read data from it.
+fstream: Stream class to both read and write from/to files.
+```
+
+### Creating a File Stream Object and Opening a File
+Before data can be written to ir read from a file:
+- A file stream object must be created.
+- The file must be opened and linked to the file stream object.
+
+```c
+ifstream inputFile;
+inputFile.open(FILE_NAME)
+```
+
+- Additional example: Opening a file to output(write)
+- If the specified file did not previously exist, it will be created.
+```c
+ofstream outputFile;
+outputFile.open(FILE_NAME)
+```
+
+### Closing a File
+Two Reasons a program should close files when it is finished using them:
+- 1: Most operating systems temporarily store data in a "file buffer" before it is written to a file. A file buffer is a small "holding secion" of memory that file-bound data is first written to. The data is not actually written to the file until the buffer is full. This is done to improve the system's performance because "doing file I/O is much slower than processing data in memory". 
+- Closing a file causes any unsaved data still in a buffer to be written out to its file. This ensures that all the data the program intended to write to the file is acutally in it if you need to read it back in later in the same program.
+
+- 2: Some operating systems limit the number of files that may be open at on time. When a program closes files that are no longer being used, it will not deplete more of the operating system's resources than secessary.
+
+```c
+inputFile.close();
+```
+
+### Writing Data to a File
+Use the stream operator (<<) with the cout object and it can also be used with ofstream objects to wrtie data to a file.
+```c
+outputFile << "I love C++ programming\n";
+outputFile << "Price: " << price << endl;
+```
+- Also, we could use a for loop to write sevel lines into our new File
+```c
+for(int count = 0; count < 3; count++) {
+  cout << "Friend #" << count;
+  cin >> name;
+  outputFile << name << endl;
+}
+
+outputFile();
+```
+
+### Reading Data from a File
+When a file has been opened for input, the file stream object internally maintains a special value known as a read position. A file's read position marks the location of the next byte that will be read from the file.(Expect to read piece of data that are separated by whitespcae characters)
+```c
+inputFile >> name;
+```
+
+### Letting the User Specify a FileName
+```c
+cin >> fileName;
+inputFile.open(fileName)
+```
+
+### Detecting the End of the File
+When reading data from a file, it is not necessary for the user to specify how many data values there are or where the data ends. 
+
+File has an end of file(EOF) mark at its end. A program can test to see whether or not it has been reached. This test is important since an error will occur if the program attempts to read beyond the end of the file.
+
+">>" operator could not only read data from a file, but it also returns a true or false value indicating whether or not the data was sucessfully read.
+
+```c
+while(inputFile >> value) {
+  // If a value was read, execute the loop again to count the value
+}
+```
+
+### Testing for File Open Errors
+Under certain curcumstances, the open member funciton will not work. There is a way to determine whether the open member function successfully opened the file.
+
+After you call the open member function, you can test the file stream object as if it were a Boolean expression.
+
+```c
+ifstream inputFile;
+
+// If the file successfully opened, process it
+if(inputFile) {
+  // Read the numbers from the file and display them
+  while(inputFile >> number) {
+    // Used the "number" in file 
+  }
+} else {
+  // Display the error message
+  cout << "Error opening the file. \n";
+}
+```
+```c
+if(inputFile.fail()) {
+  // Error message
+} else {
+  // Process the file
+}
+```
