@@ -485,3 +485,7 @@ You cannot have two local variables with the same name in a same function. But c
 
 ## Static Local Variable
 Static local variables are not destroyed when a function returns. They exist for the entire lifetime of the program, even though their scope is only the function in which thry are defined.
+
+## Overloading Functions
+You could assign the same name to multiple functions as long as their parameter lists are different. Since in C++, each function has a signature and is the name of the function and data types of the function's parameters in the proper order.
+

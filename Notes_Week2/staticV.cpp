@@ -12,11 +12,31 @@
    cout << "Static Variable Value equals " << staticV++ << endl;
  }
 
+ int square(int num);
+ float square(float num);
+
  int main() {
+   int numberInInteger;
+   float numberInFloat;
+
+   cin >> numberInInteger;
+   cin >> numberInFloat;
+
    runThisFunction();
    runThisFunction();
    runThisFunction();
    runThisFunction();
 
+   cout << square(numberInFloat) << endl;
+   cout << square(numberInInteger)<< endl;
+  
    return 0;
+ }
+
+ int square(int num) {
+   return num * num;
+ }
+
+ float square(float num) {
+   return num * num;
  }
