@@ -445,4 +445,43 @@ bool readData(ifstream& someFile) {
 }
 ```
 
+## Passing Datat by Value
+When a function prototype lists variable name along with data types, the names it uses are just "dummy names". They are not actually used by the compiler and do not have to agree with the names used in the function header.
+
+Original argument in its memory and Function parameter is in its own memory location.
+
 ***
+
+## Postfix and Prefix Modes
+++countUp;
+--countFown;
+
+- Postfix mode causes the increment to happen after the value of the variable is used in the expression.
+```c
+num = 4
+cout << num++;
+cout << num;
+```
+-> display 4 and 5
+
+- Prefix causes the increment to be done first.
+```c
+num = 4
+cout << ++num;
+cout << num;
+```
+-> display 5 and 5
+
+***
+
+## Global Variable 
+Global variable make debugging difficult. Any statement in a program can ahange the value of a global variable. If you found a wrong value is being stored in a global variable, you have to track down every statement that accesses it to determine where the bad value is coing form .
+
+#### Global Constants 
+Since global constants can not be changed during exection, we don't need to worry about the potential hazards associated with the use of global variables.
+
+#### Local and Global Variables with the same name
+You cannot have two local variables with the same name in a same function. But could have in both local and global variables. In this time, global variable or constant cannot be seen or used in this part of the program.
+
+## Static Local Variable
+Static local variables are not destroyed when a function returns. They exist for the entire lifetime of the program, even though their scope is only the function in which thry are defined.
