@@ -235,3 +235,25 @@ int main() {
   cout << "Circle2 area: " << circle2.calcArea() << endl;
 }
 ```
+
+## More on Inline function
+When design a class, we need to decide which member functinos to write as inline functions within the class declaration and which ones to define outside the class.
+
+Inline functions are handled completely differently by the compiler than regular functions.
+
+#### Regular function:
+Each time when a regular function is called, a number of special items(address to return, the value of the function argument) must be stored in a section of memory called the "stack".
+
+In addition, local variables are created and a location is reserved to hold the function's return value. All this overhead, which sets the stage for a function call takes CPU time.
+
+#### Inline function:
+Inline expression, the compiler repaces every call to the function with the actual code of the function itself.
+
+If the function is multiple times, increasing the size of the program.
+
+
+## Constructiors
+A member function that is automatically called when a class object is created.(Not allow to have return type)
+
+
+

@@ -12,12 +12,21 @@ class Circle {
   private:
     double radius;
   public:
+    Circle();
     void setRadius(double r); // These are prototypes or the member function
     double calcArea();
 };
 
 // The member function implemenation secion follows. It contains the 
 // acutal function definitions for the Circle class member functions.
+
+/*********************************************************************
+**  Constructor : Initialized the redius class member variable.
+*********************************************************************/
+Circle::Circle() {
+  radius = 1.0;
+  cout << "This is a constructor!\n";
+}
 
 /*********************************************************************
 **  Circle :: setRadius
