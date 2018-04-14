@@ -255,5 +255,59 @@ If the function is multiple times, increasing the size of the program.
 ## Constructiors
 A member function that is automatically called when a class object is created.(Not allow to have return type)
 
+#### Default Constructos (Without argument)
+- Could only have one default constructor
+```c++
+class Sale {
+  privare:
+    double taxRat;
+  public:
+    Sale();
+    Sale(double rate);
+};
+
+Sale::Sale() {
+  raxRat = 0.0;
+}
+
+Sale::Sale(double rate) {
+  raxRat = rate;
+}
+
+int main() {
+  Sale sale1(1.5);
+  Sale sale2;
+}
+```
+
+### Priavte Member Function
+Function for internal processing that should not be called by code outside the class.
+(ex. isNewLargest())
+
+## Passing Objects to Functions
+Class objects may be passed as argument to function by both value or reference.
 
 
+### Constant Reference Parameters (Constant function)
+- Passing an object by value requires making a copy of all of the object's members. If it has many members, it will slow down the program execution.
+- Passing an object by reference is faster because no copy has to be made since the function has access to the original object.
+- Passing an object by reference is preferable
+- But!! it can call its setter funtion and alter its member data.
+- To protect an object when it is passe as an argument, without making a copy, it can be passed as a "constant reference".
+- It can only call accessor function.
+```c++
+void showValue(cont InventoryItem& ) // Function prototype
+void showValue(cont InventoryItem& item) // Function header
+```
+### Example
+
+
+
+***
+
+
+## Returning an Object from a Function
+
+
+
+## Object Composition 
