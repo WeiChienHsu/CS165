@@ -508,3 +508,5 @@ void makeWithdrawal(Account &account) {
 }
 ```
 
+## Assignment Reminer
+- Do not put "using" statements in header (.hpp) files.  Instead put "std::" in front of the names you use, e.g. "std::cout".
