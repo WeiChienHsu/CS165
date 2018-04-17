@@ -22,7 +22,7 @@
 
 #include <iostream>
 #include "Taxicab.hpp"
-using namespace std;
+
 
 Taxicab::Taxicab() {
   xCoord = 0; yCoord = 0; totalDistance = 0;

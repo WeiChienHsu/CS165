@@ -36,7 +36,6 @@
 #include <iostream>
 #include <string>
 #include "Player.hpp"
-using namespace std;
 
 Player::Player() {
   name = "";
@@ -44,14 +43,14 @@ Player::Player() {
   setRebounds(-100);
   setAssists(-100);
 }
-Player::Player(string n, int p, int r, int a) {
+Player::Player(std::string n, int p, int r, int a) {
   name = n;
   setPoints(p);
   setRebounds(r);
   setAssists(a);
 }
 
-string Player::getName() {
+std::string Player::getName() {
   return name;
 }
 

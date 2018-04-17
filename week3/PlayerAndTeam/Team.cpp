@@ -38,7 +38,6 @@
 #include <iostream>
 #include "Team.hpp"
 #include "Player.hpp"
-using namespace std;
 
 Team::Team(Player pg, Player sg, Player sf, Player pf, Player c) {
   setPointGuard(pg);

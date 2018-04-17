@@ -7,7 +7,6 @@
 #include <iostream>
 #include "Player.hpp"
 #include "Team.hpp"
-using namespace std;
 
 // int main() {
 //   Player p1("Charlotte", 24, 10, 7);
@@ -16,11 +15,11 @@ using namespace std;
 //   Player p4("Jane", 19, 10, 10);
 //   Player p5("Mary", 18, 11, 8);
 //   if (p1.hasMorePointsThan(p4))
-//   cout << p1.getName() << " has more points than " << p4.getName() << "." << endl;
+//   std::cout << p1.getName() << " has more points than " << p4.getName() << "." << std::endl;
 //   p5.setRebounds(12);
 
 //   Team team1(p1, p2, p3, p4, p5);
 //   Player p = team1.getShootingGuard();
-//   cout << p.getName() << endl;
-//   cout << team1.totalPoints() << endl;
+//   std::cout << p.getName() << std::endl;
+//   std::cout << team1.totalPoints() << std::endl;
 // }

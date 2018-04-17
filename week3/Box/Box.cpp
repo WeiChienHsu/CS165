@@ -17,7 +17,6 @@
 
 #include <iostream>
 #include "Box.hpp"
-using namespace std;
 
 // Default Constructor
 Box::Box() {
