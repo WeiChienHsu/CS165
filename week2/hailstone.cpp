@@ -11,7 +11,6 @@
   
 *********************************************************************/
 #include <iostream>
-using namespace std;
 
 int hailstone(int number) {
   int currentNumber = number, count = 0;
@@ -40,10 +39,10 @@ int hailstone(int number) {
 
 // int main() {
 //   int startNumber, steps;
-//   cout << "Please enter a start number: \n";
-//   cin >> startNumber;
+//   std::cout << "Please enter a start number: \n";
+//   std::cin >> startNumber;
 //   steps = hailstone(startNumber);
-//   cout << steps << endl;
+//   std::cout << steps << std::endl;
 
 //   return 0;
 // }

@@ -11,7 +11,6 @@
 *********************************************************************/
 
 #include <iostream>
-using namespace std;
 
 /*********************************************************************
 These two functions' parameters are a reference variables.
@@ -46,5 +45,5 @@ void smallSort(int& first, int& second, int& third) {
 //   int second = 5;
 //   int third = 3;
 //   smallSort(first, second, third);
-//   cout << first << ", " << second << ", " << third << endl;
+//   std::cout << first << ", " << second << ", " << third << std::endl;
 // }

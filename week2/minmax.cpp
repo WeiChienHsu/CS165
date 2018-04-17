@@ -7,14 +7,14 @@
 *********************************************************************/
 
 #include <iostream>
-using namespace std;
+
 int main() {
   int numberOfInt, maxInt, minInt, currentInt;
 
-  cout << "How many integers would you like to enter?" << endl;
-  cin >> numberOfInt;
-  cout << "Please enter " << numberOfInt << " integers." << endl;
-  cin >> currentInt;
+  std::cout << "How many integers would you like to enter?" << std::endl;
+  std::cin >> numberOfInt;
+  std::cout << "Please enter " << numberOfInt << " integers." << std::endl;
+  std::cin >> currentInt;
   
   // In order to limit the input from user.
   // After user enters one integer, total number of Integer should minus one
@@ -26,7 +26,7 @@ int main() {
 
   // While numberOfInt is greater than zero, user could enters more number
   while(numberOfInt > 0) {
-    cin >> currentInt;
+    std::cin >> currentInt;
     
     // After user enters one integer, total number of Integer should minus one
     numberOfInt--;
@@ -40,8 +40,8 @@ int main() {
     }
   }
 
-  cout << "min: " << minInt << endl;
-  cout << "max: " << maxInt << endl;
+  std::cout << "min: " << minInt << std::endl;
+  std::cout << "max: " << maxInt << std::endl;
 
   return 0;
 

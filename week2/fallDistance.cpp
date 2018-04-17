@@ -15,25 +15,24 @@
 *********************************************************************/
 
 #include <iostream>
-using namespace std;
 
-// Function returns the distance in float
+// Function returns the distance in double
 
-float fallDistance(float fallingTime) {
-  float distance;
-  const float G = 9.8;
+double fallDistance(double fallingTime) {
+  double distance;
+  const double G = 9.8;
 
   distance = (G * fallingTime * fallingTime ) / 2;
   return distance;
 }
 
 // int main() {
-//   float distance, fallingTime;
+//   double distance, fallingTime;
 
-//   cin >> fallingTime;
+//   std::cin >> fallingTime;
 //   distance = fallDistance(fallingTime);
 
-//   cout << "The distance is: " << distance << endl;
+//   std::cout << "The distance is: " << distance << std::endl;
 //   return 0;
 // }
 

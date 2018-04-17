@@ -13,32 +13,31 @@
 *********************************************************************/
 
 #include <iostream>
-using namespace std;
 
 int main() {
     int count = 0, targetNumber, guessNumber;
     bool userIsRight = false;
 
     // Assign a target number for user to guess
-    cout << "Enter the number for the player to guess." << endl;
-    cin >> targetNumber;
+    std::cout << "Enter the number for the player to guess." << std::endl;
+    std::cin >> targetNumber;
 
-    cout << "Enter your guess." << endl;
+    std::cout << "Enter your guess." << std::endl;
     
     // While user don't gusee a right number, we will keep asking them to enter new number
     while(!userIsRight) {
       // Count how many number user enters
-      cin >> guessNumber;
+      std::cin >> guessNumber;
       count++;
 
       if(guessNumber == targetNumber) {
         // If user is correct, change the status of guessing and print out the count
         userIsRight = true;
-        cout << "You guessed it in " << count << " tries." << endl;
+        std::cout << "You guessed it in " << count << " tries." << std::endl;
       } else if (guessNumber > targetNumber) {
-        cout << "Too high - try again." << endl;
+        std::cout << "Too high - try again." << std::endl;
       } else {
-        cout << "Too low - try again." << endl;
+        std::cout << "Too low - try again." << std::endl;
       }
     }
 

@@ -24,18 +24,17 @@
 #include <fstream> // ofstream, ifstream
 #include <string>
 
-using namespace std;
 
 int main() {
   
-  string fileNmae;
+  std::string fileNmae;
   int count = 0,
       number;
-  const string NEW_FILE_NAME = "sum.txt";
+  const std::string NEW_FILE_NAME = "sum.txt";
 
-  cout << "Please enter your filename." << endl;
+  std::cout << "Please enter your filename." << std::endl;
   // User enter the filename
-  cin >> fileNmae;
+  std::cin >> fileNmae;
 
   // Create a File Stream Object for input file and Open the file 
   ifstream inputFile;
@@ -61,11 +60,11 @@ int main() {
     outputFile.close();
     inputFile.close();
 
-    cout << "result written to sum.txt" << endl;
+    std::cout << "result written to sum.txt" << std::endl;
 
   } else {
     // Fail to access the file, display an error message
-    cout << "could not access file" << endl;
+    std::cout << "could not access file" << std::endl;
   }
 
   return 0;
