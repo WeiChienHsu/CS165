@@ -70,4 +70,7 @@ Segmentation fault: 11
 ## Pointer
 In order to change memory location values outside of your function. 
 Anthing outside a fucntion parameters is the address of.
+
+- "*" Dereference: Take to the contents at that memory location 
+- "&" Address of XXX
 ***
