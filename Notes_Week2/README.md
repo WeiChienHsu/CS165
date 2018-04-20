@@ -425,6 +425,45 @@ Using reference variables as function parameters is especially useful when the p
 - When a function must change exostnig values in the calling function.
 - When a file stream object is passed to a function.
 
+## Example
+- Small Sort (with prototypes)
+
+```c++
+void smallSort(int &first, int &second, int &third);
+void swap(int &large, int &samll);
+
+int main() {
+  int first, second, third;
+  std::cout << "Please enter three numbers: " << std::endl;
+  std::cin >> first >> second >> third;
+
+  smallSort(first, second, third);
+  std::cout << first << ", " << second << ", " << third << std::endl;
+  return 0;
+}
+
+void smallSort(int &first, int &second, int &third) {
+  if(first > second) {
+    swap(first, second);
+  }
+
+  if(first > third) {
+    swap(first, third);
+  }
+
+  if(second > third) {
+    swap(second, third);
+  }
+}
+
+void swap(int &large, int &small) {
+  int temp = large;
+  large = small;
+  small = temp;
+}
+```
+
+
 ## Read File by sending as parameter
 It is possible to pass an opened file to a function and have it read just part of the file each time it is called.
 
