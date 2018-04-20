@@ -73,4 +73,66 @@ Anthing outside a fucntion parameters is the address of.
 
 - "*" Dereference: Take to the contents at that memory location 
 - "&" Address of XXX
+
+
+```c++
+int b; 
+//跟記憶體要一塊區域稱為b,這塊區域專門放int型變數值
+ 
+b = 2; 
+//把2這個值給變數b
+ 
+int* pointer; 
+//跟記憶體要一塊區域稱為pointer,這塊區域專門放指向int型變數的指標（地址）
+ 
+pointer = &b; 
+//把變數b的地址值給pointer，注意不能寫成 pointer = b;
+```
+- 變數 b 在記憶體中對應了一塊儲存空間，而這塊儲存空間總有一個起始的地址。所以 pointer 對應到的就是這個起始地址。
+
+在這種狀況下，就可以用「*pointer」來拿到這個變數。
+
+這裡的「*」，和宣告指標變數的 int* pointer 的意義不太一樣。反而是和「&」相對應——「&」代表「取出地址」、「*」代表「取出內容」。
+
+等等，那所謂的「*pointer 取出的內容」指的到底是變數 b、還是變數 b 的值 2？
+
+這兩個是不同的東西喔！變數 b 是這塊區域，2 是值。
+
+答案是：*pointer 代表的就是變數 b。所以我們可以把 *pointer 當作變數 b 來使用。
+
+```c++
+#include <stdio.h>
+ 
+int main(void) {
+    int b = 2;
+    int* pointer = &b;
+ 
+    printf("變數 b 的值：%d\n", b);
+    printf("變數 b 的地址：%p\n", &b);
+    printf("pointer 的值：%p\n", pointer);
+    printf("\n"); //換行
+    
+    *pointer = 100;
+ 
+    printf("*pointer 的值：%d\n", *pointer);
+    printf("變數 b 的值：%d\n", b);
+    printf("變數 pointer 的地址：%p\n", &pointer);
+ 
+    return 0;
+}
+```
+### Output
+
+```
+變數 b 的值：2
+變數 b 的地址：0x7ffee58578f8
+pointer 的值：0x7ffee58578f8
+pointer 的地址: 0x7ffee58578f0
+
+*pointer 的值：100
+變數 b 的值：100
+變數 pointer 的地址：0x7ffee58578f0
+```
+
+
 ***
