@@ -152,6 +152,21 @@ pointer 的地址: 0x7ffee58578f0
 - If we define a int pointer, when we dereference that address, the machien knows that it needs to look up from this memory to next 3 address for a real value.
 
 
+## Pointer to Pointer
+- When we want a pointer to pointer
+- Since the pointer variable is a strong stype variable, the "point to" value to the q pointer should be "int*" which is the type of pointer p.
+
+```
+_________________________
+a=5  | p = 200  |  q = 201
+__________________________
+200    201        202
+
+int *p = &5 -> pointer p stored the address of a (which is 200)
+int* *q = &p -> pinter q stored the address of pointer p
+
+```
+
 
 ## Pointer with Array
 
@@ -193,6 +208,20 @@ C++中，陣列變數會有陣列型別和大小的資訊，所以要宣告和�
 - 格式：型別* 變數名稱 [大小] = 陣列名稱;
 
 ## Function and Pointer
+- Since if we use a function, all local values or variables will be stored in a separated Stack in the memory.
+- We could pass an address of the variable as a argument to a pointer in another function.
+- Pointer of integer and the value that is passed to this particular address of variable.
+```c++
+void increment(int* p) {
+  *p = *p + 1;
+}
+
+int main() {
+  int a = 10;
+  increment(&a);
+}
+```
+
 
 ```c++
 int sum(int *, int *);
@@ -200,7 +229,6 @@ int sum(int *, int *);
 int sum(int *a, int *b) {
   int value;
   value = *a + *b;
-
   return value;
 }
 
@@ -212,9 +240,86 @@ int main() {
   return 0;
 }
 ```
+### Pass an array as an argument into FUNCTION
+- When compiler see a fucntion as argument, it doesn't copy whole array.
+- It just creates a pointer variable by the same name instead of creating the whole array
+- Compiler just copied "the address of first element" in the array
 
+```
+int SumOfElement(int A[]) --> int* A
+```
+
+- Since array could be a large exist, it doesn't necessary to copy whole array
+
+```c++
+int SumOfElements(int *A, int size) {
+  int i, sum = 0;
+  cout << "Size of A[] in sum function: " << sizeof(A) << endl;
+  for(i = 0; i < size; i++) {
+    sum += A[i];
+  }
+  cout << "Size of A[0] in sum function: " << sizeof(A[0]) << endl;
+  return sum;
+}
+
+int main() {
+  int A[] = {1,2,3,4,5};
+  int size = sizeof(A) / sizeof(A[0]);
+  cout << "Size of A[] in main function: " << sizeof(A) << endl;
+  cout << "Size of A[0] in main function: " << sizeof(A[0]) << endl;
+  cout << "Sum of the Array: " << SumOfElements(&A[0], size) << endl;
+  cout << "Sum of the Array: " << SumOfElements(A, size) << endl;
+  return 0;
+}
+```
+
+## Pointers and multi-dimensional Arrays
+- Collection of Arrays
+
+#### For 2-D Array
+```
+B[i][j] = *(B[i] + j) = *(*(B + i) + j)
+--------------------
+
+B[2][3] = *(B[2] + 3) // 先指向B的第二個1D Integer Array，再從開頭往後指三個
+= *(*(B + 2) + 3) // 先指向B的初始element，向後兩個2D Integers Array，指向該1D Integer Array的第一個後，再從開頭往後指三個
+```
+
+#### Example
+
+```
+ 400                  412  
+----------------------------------------
+|  0 |  1   |  2   ||  5  |  6  |   7  |   
+----------------------------------------
+       404    408          416    420
+
+int B[2][3]
+
+int* p = b -> WRONG! pointer points to 1-D array of "3 Integers"
+int (*p)[3] = B -> B stand for the address of this 2D Array
+
+B will return int*[3] 在大格子裡移動，一次move 3 integers
+
+print B || &B[0]  :  400 (Address of B[0] -> Fisrt element in the 3 integers Array)
+print *B || B[0]  :  400 (Address of B[0][0] -> First element in the Whole Array)
+
+==============
+
+B[0] will return int* 小格子裡，一次move 1 integer
+
+print B + 1 || &B[1] : 412
+print *(B + 1) || B[1] || &B[1][0] : 412
+
+==============
+
+print *(B + 1) + 2 || B[1] + 2 || &B[1][2] //420
+print *(*B + 1) || B[0][1] //1 
+
+```
 
 ***
+
 ## Dynamic Memory Allocation 
 程式執行到需要儲存處理的資料時才配置記憶體。
 
