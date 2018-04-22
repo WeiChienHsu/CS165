@@ -276,6 +276,10 @@ int main() {
 ## Pointers and multi-dimensional Arrays
 - Collection of Arrays
 
+```
+C[i][j][k] = *(C[i][j] + k) = *(*(C[i] + j) + k) = *(*(*(C + i) + j) + k)
+```
+
 #### For 2-D Array
 ```
 B[i][j] = *(B[i] + j) = *(*(B + i) + j)
@@ -323,19 +327,169 @@ print *(*B + 1) || B[0][1] //1
 ## Dynamic Memory Allocation 
 程式執行到需要儲存處理的資料時才配置記憶體。
 
-### 堆積(Heap)：
+
+
+## Memory
+The memory that is assigned to a program or application, the typical architrcture can be devided into four segments.
+- Code(Text) : Instructions need to be executed
+
+- Static/Global variables: Variables taht are not declared indside a function, the that have a whole lifetime of an application, they are accesible anywhere during the runtime.
+
+### Stack
+
+- Stack: Stored all function calls and all the local variables. Local variables are created inside function and they live only till the time the function is executing. (From main funciton, put all the function in to different stack frams and step by step execute them). When the function size is larger than stack conpacity(Bad Recursion), it will cause a stack overflow.
+
+- When the funciton is called, it is pushed onto the top of stack, when it finished, it is pop out of stack and it's not possible to manipulate the scope of a variable if it is on stack.
+
+- If we would like to have a large size of array in function as local variable, then we need to know the size of the array at compile time only. If we have a scenario like we have to decide how large the array will be based on some parameter during runtime the it has some problems: Allocating large chunks of memory of keeping variable in the memory till the time we want.
+
+### Heap :
+- Heap: Will chagne the size during lifetime of application. (Not likes the Code/Stack and Static)
+- Programmer couldl control using Heap in system.(Large pool of memory)
 - 堆積是一種資料結構，用來存放電腦中沒有使用的記憶體，可自由配置(Free Store)。
 - 使用new運算子配置空間，配置後會一直佔用空間直到使用delete運算子釋放空間為止
-- new運算子和delete運算子通常是成對出現
+- new運算子和delete運算子通常是成對出現。
 
 ```c++
-  int *pInt = 0;
-  pInt = new int(28);
-  pInt = new int(27);
-  cout << *pInt << endl;
-  delete pInt;
+  int a; // Goes on stack
+  int *pInt;
+  pInt = new int[20];
+  delete[] pInt;
 ```
-- Allocating large chunks of memory
-- Keep variable in the memory till the time we want
+- Pointer's address save in the stack and points to the array stored in Heap(which assumes from 50 to 130)
+
+
+## Memory Leak 
+
+***
+
+## Pointers as Function Reutrns
+
+
+```c++
+int Add(int *a, int *b) {
+  // a and b are pointers to integers stored in loacl "Add"
+  // int *a = &a;
+
+  cout << "Address of a in Add = " << &a << endl; 
+  // &a : 0x7ffee5a328b8 is pointer
+
+  cout << "Value in a of Add(address of a of main) = " << a << endl;  
+  // a: 0x7ffee5a32918 Pointer points to address of a
+  
+  cout << "Value at address stored in a of Add = " << *a << endl; 
+  // *a: Value of a stored in the main function -> 4
+  
+  int c = *a + *b;
+  return c;
+}
+
+int main() {
+  int a = 4, b = 6;
+  cout << "Address of a in Main = " << &a << endl; // 0x7ffee5a32918
+  int sum = Add(&a, &b);
+  cout << sum << endl;
+  return 0;
+}
+```
+#### But when we want to return the pointer variable from function :
+- If we try to return a local variable from the called function back to the calling function(Main function), when called function finished and the control returns back to calling function that memory has already been de-allocated.
+- It is ok to pass loacl variables from bottom to top (In stack).
+
+```c++
+int *Add(int *a, int *b) {
+  int c = *a + *b;
+  return &c;
+}
+
+int main() {
+  int a = 4, b = 6;
+  int *ptr = Add(&a, &b);
+  cout << *ptr << endl;
+  return 0;
+}
+```
+
+```
+warning: address of stack memory associated with local variable 'c' returned [-Wreturn-stack-address]
+```
+- Solve the problem by stored the value into Heap (Which could manaully control the value saved in memory)
+- 我們將 Add function 內的 C 變成一個 pointer ， 指向Heap中的某個位置，在Add function 運行結束後，該值會繼續存在 Heap 當中，回傳值就是 C pointer 指向的位置。
+- Main function 內的 Pointer 指向的即是剛才 Heap 中的位置，可以直接取值。
+
+```c++
+int *Add(int *a, int *b) {
+  int *c = new int; // New a space in Heap
+  *c = *a + *b; // Value in the C will be the sum of Value of Address a and b
+  return c;
+}
+
+int main() {
+  int a = 4, b = 6;
+  int *ptr = Add(&a, &b); // Pointer points to the C stored in the Heap memory 
+  cout << *ptr << endl;
+  return 0;
+}
+```
+```
+Address of C in Heap:(from Add function) 0x7fa179402810
+Address of pointer which save the address of C in Heap (from Add function) 0x7ffee352c8f8
+Address of C in Heap (from Main Function)0x7fa179402810
+```
+
+## Function Pointers
+Stored the Address of "Function".
+- Which mean the starting point of the block of memory containing all the instruction in a function.
+- Pointer should take arguments the same as in the function.
+
+#### Pointer take the address of Add
+
+```c++
+int Add(int a, int b) {
+  return a + b;
+}
+
+int main() {
+  int c;
+  int (*p)(int, int);
+  p = &Add;
+  c = (*p)(4,5);
+  cout << c << endl;
+
+  return 0;
+}
+```
+- Only assign a Function also return the address of Function in this case
+```c++
+  p = Add;
+  c = p(4,5);
+```
+
+## Function Pointers and Callbacks
+A is a callback function. It can be called back by B through the reference through the function pointer.
+
+```c++
+void A() {
+  cout << "Call Back Function was called!" << endl;
+}
+
+void B(void (*ptr)()) { // Function pointer as argument
+  ptr(); // Call back functino that 'ptr' points to
+}
+
+int main() {
+  B(A); // A is callback function
+  return 0; 
+}
+```
+
+### Why pass a function 
+
+Lets say you are designing a library function that would do something like sorting so anyone can just use your library function and sort. And you want to keep this sorting function generic , so data type can be anything. Then, how would you take the required information to sort from user of your library function?  You cannot guess the comparison logic for a complex daya type. So, you would want to get the comparison logic too which can be passed as a function. So, in many cases when we are dealing with generic scenarios, function pointers make our life easier. It should be seen as a way to accept functionality as argument. So far, we knew that functions can accept only data, but now we know that even a function can be passed.
+
+### Case 
+- Sorting
+- Callback function should compare two integers, should return 1 if first element has higher rank, 0 is elements are equal and -1 if second element has higher rank.
+
 
 ***
