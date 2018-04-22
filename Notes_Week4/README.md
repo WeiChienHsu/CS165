@@ -1,8 +1,9 @@
 # Arrays
 
 
-[C/C++ - Vector (STL) 用法與心得完全攻略
-](http://mropengate.blogspot.com/2015/07/cc-vector-stl.html)
+[C/C++ - Vector (STL) 用法與心得完全攻略](http://mropengate.blogspot.com/2015/07/cc-vector-stl.html)
+
+[真的很可怕的C語言](http://pl-learning-blog.logdown.com/posts/1060530)
 
 ***
 
@@ -71,8 +72,12 @@ Segmentation fault: 11
 In order to change memory location values outside of your function. 
 Anthing outside a fucntion parameters is the address of.
 
-- "*" Dereference: Take to the contents at that memory location 
-- "&" Address of XXX
+- "*" Dereference Operator: Take to the contents at that memory location 
+(對該position的variable或Object進行操作，讀值賦值)
+
+- "&" Address-Of Operator: Take the address of Variable of Object
+
+- init: type *pointer = 0 必須給予某個位置，不然後續會有問題
 
 
 ```c++
@@ -83,7 +88,7 @@ b = 2;
 //把2這個值給變數b
  
 int* pointer; 
-//跟記憶體要一塊區域稱為pointer,這塊區域專門放指向int型變數的指標（地址）
+//跟記憶體要一塊區域稱為pointer, 這塊區域專門放指向int型變數的指標（地址）
  
 pointer = &b; 
 //把變數b的地址值給pointer，注意不能寫成 pointer = b;
@@ -134,5 +139,60 @@ pointer 的地址: 0x7ffee58578f0
 變數 pointer 的地址：0x7ffee58578f0
 ```
 
+
+## Pointer with Array
+
+pointer++ Could let the pointer points to the next position in the Array.
+
+```c++
+  int intArray[3]= {1,2,3};
+  int *pInt = intArray;
+  cout << "Array address: " << pInt << endl;
+  cout << "First number in Array: " << *pInt << endl;
+  pInt++;
+  cout << "Array address: " << pInt << endl;
+  cout << "Second number in Array: " << *pInt << endl;
+```
+```
+Array address: 0x7ffee007f93c
+First number in Array: 1
+Array address: 0x7ffee007f940
+Second number in Array: 2
+```
+
+## 2D Array and Pointer
+### A value of type "int (*)[4]"
+- A value of type "int (*)[4]" cannot be used to intitialize an entity of type "int *"
+```c++
+int arr[2][4] = {{0,2,4,6},{1,1,1,1}};
+int *pint3 = arr;
+```
+- Instead, we use (*pInt)[4] = inMulAr;
+```c++
+int (*pint3)[4] = arr;
+```
+
+C++中，陣列變數會有陣列型別和大小的資訊，所以要宣告和多維陣列相同型別的指標時，也需要型別和大小的資料
+- 格式：型態 (*變數名稱)[大小] = 陣列名稱;
+如果變數名稱外沒有小括號，編譯器會將型別和*合在一起解讀成記錄指標的陣列
+- 格式：型別* 變數名稱 [大小] = 陣列名稱;
+
+
+***
+## Dynamic Memory Allocation 
+程式執行到需要儲存處理的資料時才配置記憶體。
+
+### 堆積(Heap)：
+- 堆積是一種資料結構，用來存放電腦中沒有使用的記憶體，可自由配置(Free Store)。
+- 使用new運算子配置空間，配置後會一直佔用空間直到使用delete運算子釋放空間為止
+- new運算子和delete運算子通常是成對出現
+
+```c++
+  int *pInt = 0;
+  pInt = new int(28);
+  pInt = new int(27);
+  cout << *pInt << endl;
+  delete pInt;
+```
 
 ***
