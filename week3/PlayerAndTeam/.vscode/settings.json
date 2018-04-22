@@ -11,6 +11,8 @@
     "__functional_03": "cpp",
     "functional": "cpp",
     "string": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "memory": "cpp",
+    "ostream": "cpp"
   }
 }

@@ -5,6 +5,8 @@
 
 [真的很可怕的C語言](http://pl-learning-blog.logdown.com/posts/1060530)
 
+[Pointers and dynamic memory - stack vs heap](https://www.youtube.com/watch?v=_8-ht2AKyH4)
+
 ***
 
 ## Chapter 8
@@ -79,6 +81,7 @@ Anthing outside a fucntion parameters is the address of.
 
 - init: type *pointer = 0 必須給予某個位置，不然後續會有問題
 
+- 變數指標擁有的值，就是指向的對象的地址，變數指標自己也有存在不同的地址內，使用變數指標存儲的地址，才可以更改該地址內的變數或讀取。
 
 ```c++
 int b; 
@@ -140,9 +143,21 @@ pointer 的地址: 0x7ffee58578f0
 ```
 
 
+***
+
+## Why pointer varaible is a strong type
+- We don't use pointer just for storing the address in memory.
+- We also use piinters to dereference these address so we can access or modify these address.
+- Datatype have different size, for 32bit device, int stored in 4 byte, char stored in 1 byte, float stroed in 4 byte
+- If we define a int pointer, when we dereference that address, the machien knows that it needs to look up from this memory to next 3 address for a real value.
+
+
+
 ## Pointer with Array
 
-pointer++ Could let the pointer points to the next position in the Array.
+- pointer++ Could let the pointer points to the next position in the Array.
+
+如果是普通的整數型變數的話++就是+1了。但是，指標變數pnumber給++的話，並不是單純的+1。因為pnumber是int的指標變數，所以pnumber所指的地方也是有int的大小(32bit電腦通常是4bytes)，也就是說，如果把位址只加上1的話，會指向奇怪的地方。這也是為何位址不能用普通的int來儲存的原因
 
 ```c++
   int intArray[3]= {1,2,3};
@@ -177,6 +192,27 @@ C++中，陣列變數會有陣列型別和大小的資訊，所以要宣告和�
 如果變數名稱外沒有小括號，編譯器會將型別和*合在一起解讀成記錄指標的陣列
 - 格式：型別* 變數名稱 [大小] = 陣列名稱;
 
+## Function and Pointer
+
+```c++
+int sum(int *, int *);
+
+int sum(int *a, int *b) {
+  int value;
+  value = *a + *b;
+
+  return value;
+}
+
+int main() {
+  int num_1 = 1, num_2 = 2, answer;
+
+  answer = sum(&num_1, &num_2);
+  std::cout << answer << std::endl;
+  return 0;
+}
+```
+
 
 ***
 ## Dynamic Memory Allocation 
@@ -194,5 +230,7 @@ C++中，陣列變數會有陣列型別和大小的資訊，所以要宣告和�
   cout << *pInt << endl;
   delete pInt;
 ```
+- Allocating large chunks of memory
+- Keep variable in the memory till the time we want
 
 ***
