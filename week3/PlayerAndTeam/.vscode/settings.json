@@ -13,6 +13,18 @@
     "string": "cpp",
     "iostream": "cpp",
     "memory": "cpp",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "__hash_table": "cpp",
+    "__split_buffer": "cpp",
+    "bitset": "cpp",
+    "hash_map": "cpp",
+    "iterator": "cpp",
+    "list": "cpp",
+    "string_view": "cpp",
+    "unordered_map": "cpp",
+    "utility": "cpp",
+    "vector": "cpp",
+    "__locale": "cpp",
+    "ios": "cpp"
   }
 }
