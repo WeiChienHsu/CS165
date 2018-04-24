@@ -577,3 +577,117 @@ int main() {
 
 
 ### 2D Dynamic Array
+```
+Address of arr location : 0x7ffee68a3910
+Address of pointer location: 0x7ffee68a3910
+Address of next row location: 0x7ffee68a3920
+```
+
+```c++
+  cout << "Address of arr location : " << arr << endl;
+  cout << "Address of pointer location: " << &arr << endl;
+  cout << "Address of next row location: " << &arr[1] << endl;
+  cout << "Contnets at location: " << arr[0][0] << endl;
+
+  for(int i = 0; i < ROWS; i++) {
+    for(int j = 0; j < COLS; j++) {
+      arr[i][j] = i * j;
+    }
+  }
+
+    for(int i = 0; i < ROWS; i++) {
+      for(int j = 0; j < COLS; j++) {
+        cout << "Contnets: " << arr[i][j] << endl;
+    }
+  }
+```
+
+
+#### Double Poionters
+```
+[int** arr] -> [ array[0], array[1]] -> [array[0][0]]
+              |---------------  Heap ---------------|
+```
+- int** arr pointer points to an array of pointers.
+- For those number of pointers I just made, let them point to an integer array of so many colums.
+
+```c++
+  int **dyarr;
+  dyarr = new int *[ROWS];
+  for(int i = 0; i < ROWS; i++) {
+    dyarr[i] = new int[COLS];
+  }
+```
+
+```
+Adress of pointer on STACK: 0x7ffeef232830
+Address of first row location: 0x7f9c84c02830
+Address of Array Row: 0x7f9c84c02810
+Address of next row pointer location  0x7f9c84c02818
+Address of next row :  0x7f9c84c02840
+Address of next row :  0x7f9c84c02840
+```
+
+
+```c++
+int main() {
+  int** ptrToPtr = new int*[5]; 
+  // Pointer in Stack : Points to the "Integer Pointers" which points to Inter Array in Heap
+  for(int i = 0; i < 5; i++) 
+    *(ptrToPtr + i) = new int[5];
+    // ptrToPtr[i] = new int[5];
+     
+    // Point to the Array of Integer in different address in Heap
+  
+
+  for(int i = 0; i < 5; i++) {
+    delete[] ptrToPtr[i];
+  }
+  delete[] ptrToPtr;
+
+  return 0;
+
+}
+```
+
+***
+
+## Passing a 2D Array to a Function 
+```c++
+// Passing a pointer or Passing an Array of Integer
+void passing(int *arr , int size) {
+  for(int i = 0; i < size; i++) {
+    arr[i] = i + 1;
+  }
+}
+
+int *creating() {
+  return new int[3];
+}
+
+void creating(int **a, int size) {
+  *a = new int[size]; // Dereference the address of Pointer and points to Integer Array
+}
+
+int main() {
+  int sarr[3], *darr;
+  // darr = creating();
+  creating(&darr, 3); // Pass the address of Pointer
+
+  passing(sarr, 3);
+  passing(darr, 3);
+
+  for(int i = 0; i < 3; i++) {
+    cout << "Dynamic Array: " << darr[i] << endl;
+    cout << "Dynamic Address: " << &darr[i] << endl;
+    cout << "Dynimaic Pointer Address: " << &darr << endl;
+    cout << "Dynimaic Pointer points to: " << darr + i << endl;
+  }
+
+  delete[] darr;
+  return 0;
+}
+```
+
+## Jagged Arrays
+
