@@ -525,3 +525,55 @@ int main() {
 
 # Static and Dynamic 2D Array
 
+### 1D Static Array
+Self-referencial constant pointer, could change the value
+
+Array Location : 0x7ffeef18f910
+Array pointer location : 0x7ffeef18f910
+
+
+### 1D Dynamic Array
+int *array pointer, not self-referencial pointer
+
+Array Location on the Heap : 0x7fb337d00000 (in Heap)
+Array pointer location : 0x7ffeef18f8b8 (in main function)
+
+
+```c++
+int main() {
+  int arr[ELE];
+  int i, size;
+
+
+  cout << "Array Location : " << arr << endl;
+  cout << "Array pointer location : " << &arr << endl;
+
+  for(i = 0; i < ELE; i++) 
+    arr[i] = i;
+  
+  for(i = 0 ;i < ELE; i++)
+    cout << "Initial contnets: " << arr[i]  << " | Address of elements: " << &arr[i] << endl;
+
+  
+  int *dynarr;
+  dynarr = new int[ELE];
+  cout << "Array pointer location : " << &dynarr << endl;
+    cout << "Array Location on the Heap : " << dynarr << endl;
+
+  for(i = 0; i < ELE; i++) 
+    dynarr[i]   =  i;
+
+  for(i = 0 ;i < ELE; i++)
+    cout << "Initial contnets: " << dynarr[i] << " | Address of elements in Heap: " << &dynarr[i]<< endl;
+
+  delete[] dynarr;
+
+  return 0;
+}
+```
+
+
+### 2D Static Array
+
+
+### 2D Dynamic Array
