@@ -19,8 +19,8 @@
 ** returns the standard deviation of all the ages.
 ************************************/
 
-double setDev(Person *arr, int size) {
-  double sum, mean, squareResult, answer;
+double stdDev(Person *arr, int size) {
+  double sum = 0, mean = 0, squareResult = 0, answer = 0;
   
   // Work out the Mean
   for(int i = 0; i < size; i++) {

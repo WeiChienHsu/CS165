@@ -40,7 +40,7 @@ void BubbleSort(int *A, int size) {
 **  This function will change the original array.
 *********************************************************************/
 
-double findMediam(int *arr, int size) {
+double findMedian(int *arr, int size) {
 
   // Sort the original array
   // We let the pointer in fuction points to the original array
@@ -61,10 +61,9 @@ double findMediam(int *arr, int size) {
 }
 
 
-int main() {
-  int A[] = {1,2,5,7,8,4};
-  double ans;
-  ans = findMediam(A, 6);
-  std::cout << ans << std::endl;
-  return 0;
-}
+// int main() {
+//   int array[] = {1,5,7,4,2,6,3,9,8};
+//   double result = findMedian(array, 9);
+//   std::cout << result << std::endl;
+//   return 0;
+// }
