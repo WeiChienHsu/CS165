@@ -25,6 +25,12 @@
     "utility": "cpp",
     "vector": "cpp",
     "__locale": "cpp",
-    "ios": "cpp"
+    "ios": "cpp",
+    "__bit_reference": "cpp",
+    "__tuple": "cpp",
+    "__mutex_base": "cpp",
+    "istream": "cpp",
+    "streambuf": "cpp",
+    "tuple": "cpp"
   }
 }

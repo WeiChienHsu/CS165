@@ -16,3 +16,37 @@
 ## Bubble Sort
 
 ## Insertion Sort
+
+```
+_
+2  4  5  3  1
+
+next = 4
+index = i
+j = i
+check if next < arr[j-1]
+
+_  _  _  _
+2  4  5  3  1
+
+next = 3
+index = 3
+j = i
+check if next < arr[j-1]
+
+3 < arr[2]
+3 < arr[1]
+3 < arr[0]
+
+- * - -
+2 3 4 5
+
+while(j > 0 and next < arr[j-1]) {
+  arr[j] = arr[j-1]; // 2 4 5 5 -> 2 4 4 5
+  j--
+}
+
+arr[j] = next; // 2 3 4 5
+```
+
+***
