@@ -37,19 +37,19 @@ void boxSort(Box *arr, int size) {
   } 
 }
 
-int main() {
-  int size = 5;
-  Box box1(2,2,2);
-  Box box2(3,3,3);
-  Box box3(1,1,1);
-  Box box4(3,1,1);
-  Box box5(1,5,5);
+// int main() {
+//   int size = 5;
+//   Box box1(2,2,2);
+//   Box box2(3,3,3);
+//   Box box3(1,1,1);
+//   Box box4(3,1,1);
+//   Box box5(1,5,5);
 
-  Box arr[] = {box1, box2, box3, box4, box5};
-  boxSort(arr, size);
+//   Box arr[] = {box1, box2, box3, box4, box5};
+//   boxSort(arr, size);
 
-  for(int i = 0; i < size; i++) {
-    std::cout << arr[i].calcVolume() << std::endl;
-  }
-  return 0;
-}
+//   for(int i = 0; i < size; i++) {
+//     std::cout << arr[i].calcVolume() << std::endl;
+//   }
+//   return 0;
+// }
