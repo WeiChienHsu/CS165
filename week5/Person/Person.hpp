@@ -21,8 +21,8 @@ class Person {
   public:
     Person();
     Person(std::string, double);
-    std::string getName();
-    double getAge();
+     std::string getName() const;
+     double getAge() const;
 };
 
 #endif

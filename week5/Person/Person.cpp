@@ -36,7 +36,7 @@ Person::Person(std::string thisName, double thisAge) {
 ** Getter Function
 ** Get the string of name.
 ************************************/
-std::string Person::getName() {
+ std::string Person::getName() const {
   return name;
 }
 
@@ -44,6 +44,6 @@ std::string Person::getName() {
 ** Getter Function
 ** Get age in double.
 ************************************/
-double Person::getAge() {
+ double Person::getAge() const {
   return age;
 }
