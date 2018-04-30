@@ -363,6 +363,23 @@ The memory that is assigned to a program or application, the typical architrctur
 
 ***
 
+## Array as Function Arguments
+Notice also that there is no size declarator inside the brackets of nums. This is because nums is not actually an array - it's a special variable taht accepts the address of an array. When an entire array is passed to a fuction, it's not passed by value. Instead, only the starting memory address of the array is passed. This is similar to passing a variable to a function by reference, except that in this case no& is used.
+
+```c++
+void showValue(int nums[]m int size) {
+  
+}
+```
+
+## Using const Array Parameters
+- Couldn't change the value inside the array
+```c++
+void showValue(const arrayType arr[], int size);
+```
+
+
+
 ## Pointers as Function Reutrns
 
 
@@ -716,4 +733,63 @@ int main() {
   return 0;
 }
 ```
+## Porcessing Strings
 
+- transfer to the uppercase
+- toupper is a function not like a methods in Java
+```
+char char1 = toupper(sentence[pos]);
+```
+- A < B
+```
+char1 < char2
+```
+
+## Vector
+
+### STL
+
+The data types that are defined in the STL are commonly called containers. They are called containers because they stored and organized data. 
+
+Two Types of containers in the STL: sequence and associative containers.
+
+#### sequence containers
+Organized data in a sequential fashion, similar to array.
+
+#### Associative 
+Organized data with keys which allow rapid, random access to elements stored in the container.
+
+## Vector
+- A vetor holds a sequence of values, or elements.
+- A vector sotres its elements in contiguous memory location.
+- You can use the array subscripe operator [] to access indivial elements in the vector.
+
+- Unlike array, vector could report the number of elements they contain.
+
+- To store a value ina vector that does not have a starting size, or that is already full, we should use the "push_back()" member function. "pop_back()" to remove, "clear()" to clearn a vector.
+
+```c++
+#include <iostream>
+#include <vector>
+#include <iomanip>
+
+
+int main() {
+  const int NUM_EMPS = 5;
+  std::vector <int> hours;
+
+
+  for(int i = 0; i < NUM_EMPS; i++) {
+    hours.push_back(i);
+  }
+
+  for(int num : hours){
+    std::cout << num << std::endl;
+  }
+
+  std::cout << hours.size() << std::endl;
+  std::cout << hours.at(3) << std::endl;
+  return 0;
+}
+
+```

@@ -50,3 +50,13 @@ arr[j] = next; // 2 3 4 5
 ```
 
 ***
+
+## Method to get const Object
+
+The objects in the std::set are stored as const StudentT. So when you try to call getId() with the const object the compiler detects a problem, namely you're calling a non-const member function on const object which is not allowed because non-const member functions make NO PROMISE not to modify the object; so the compiler is going to make a safe assumption that getId() might attempt to modify the object but at the same time, it also notices that the object is const; so any attempt to modify the const object should be an error. Hence compiler generates error message.
+
+```c++
+ std::string Person::getName() const {
+  return name;
+}
+```
