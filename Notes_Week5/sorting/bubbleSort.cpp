@@ -22,6 +22,20 @@ void bubbleSort(int *arr, int size) {
   }
 }
 
+void bubbleSort2(int arr[], int size) {
+  int count;
+  bool madeAswap = false;
+  do {
+    for(count = 0; count < size - 1; count++) {
+      madeAswap = false;
+      if(arr[count] > arr[count+1]) {
+        swap(arr, count, count + 1);
+        madeAswap = true;
+      }
+    }
+  } while (madeAswap);
+}
+
 void swap(int *arr, int i, int j) {
   int temp = arr[i];
   arr[i] = arr[j];
@@ -30,7 +44,7 @@ void swap(int *arr, int i, int j) {
 
 int main() {
   int arr[] = {1, 3, 5, 4};
-  bubbleSort(arr, 4);
+  bubbleSort2(arr, 4);
   for(int i = 0; i < 4; i++) 
     std::cout << arr[i] << std::endl;
   
