@@ -13,6 +13,22 @@
 void swap(int* arr, int i, int j);
 int findMinIndex(int arr[], int size, int curInedx);
 
+void selectSort2(int arr[], int size) {
+  int startScan, minIndex, minValue;
+  for(startScan = 0; startScan < size -1; startScan++) {
+    minIndex = startScan;
+    minValue = arr[startScan];
+    for(int currentIndex = startScan + 1; currentIndex < size; currentIndex++) {
+      if(arr[currentIndex] < minValue) {
+        minValue = arr[currentIndex];
+        minIndex = currentIndex;
+      }
+    }
+    swap(arr, minIndex, startScan);
+  }
+}
+
+
 void selectSort(int arr[], int size) {
   for(int i = 0; i < size; i++) {
     // Based on current index and search the rest of array
@@ -39,7 +55,7 @@ void swap(int* arr, int i, int j) {
 
 int main() {
   int arr[] = {1, 3, 5, 4};
-  selectSort(arr, 4);
+  selectSort2(arr, 4);
   for(int i = 0; i < 4; i++) 
     std::cout << arr[i] << std::endl;
   
