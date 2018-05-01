@@ -10,10 +10,42 @@
 
 - In coding interviews you'll be expected to be able to talk about running times.  They'll ask you to figure out the code for something on a white board and often they'll ask you about its running time and whether you can think of a way to do it that uses less time or memory.
 
+## Binary Search
+```c++
+int binarySearch(int arr[], int size, int target) {
+  int start = 0, end = size - 1;
+  while(start + 1 < end) {
+    int middle = start + (end - start) / 2;
+    if(target == arr[middle]) {
+        start = middle;
+    } else if(target > arr[middle]) {
+        start = middle;
+    } else {
+        end = middle;
+    }
+  }
+```
+
+***
+
 
 ## Selection Sort
 
 ## Bubble Sort
+Works by comparing each element in the array with its neighbor and swapping then if they are not in the desired order.
+
+```
+Do
+  Set madeAswap flag to false
+  For count = 0 to the next-to-last array subscript
+    If array[count] is greater than array[count +1]
+      Swap the contents of array[count] and array[count+1]
+      set madeAswap flag to true
+    End if
+  End for
+While the madeAswap flag is true
+
+```
 
 ## Insertion Sort
 
