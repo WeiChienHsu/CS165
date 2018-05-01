@@ -28,9 +28,6 @@ int binarySearch(int arr[], int size, int target) {
 
 ***
 
-
-## Selection Sort
-
 ## Bubble Sort
 Works by comparing each element in the array with its neighbor and swapping then if they are not in the desired order.
 
@@ -46,6 +43,103 @@ Do
 While the madeAswap flag is true
 
 ```
+
+```c++
+void bubbleSort(int *arr, int size) {
+  for(int curLargeIndex = size - 1; curLargeIndex >= 0; curLargeIndex--) {
+    // int curLarge = arr[curLargeIndex];
+    for(int j = 0; j < curLargeIndex; j++) {
+      if(arr[j] > arr[j + 1]) {
+        swap(arr, j, j+ 1);
+      }
+    }
+  }
+}
+
+void bubbleSort2(int arr[], int size) {
+  int count;
+  bool madeAswap = false;
+  do {
+    for(count = 0; count < size - 1; count++) {
+      madeAswap = false;
+      if(arr[count] > arr[count+1]) {
+        swap(arr, count, count + 1);
+        madeAswap = true;
+      }
+    }
+  } while (madeAswap);
+}
+
+void swap(int *arr, int i, int j) {
+  int temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+```
+
+
+## Selection Sort
+Bubble is inefficient for large arrays because repeated data swaps are often required to place a single item in its correct position on each pass. The selection sort, like the bubble sort, places just one item in its correct position on each pass. However it usually perform fewer exchanges because it moves items immedicately to their correct position in the array.
+
+```
+For startScan = 0 to the next-to-last array subscript
+  Set minIndex to startScan
+  Set minValue to array[startScan]
+  For index = (startScan + 1) to the last subscript in the array
+    If array[index] is less than minValue
+      Set minValue to array[index]
+      Set minIndex to indrx
+    End if
+    Increment index
+  End for
+  ///////
+  Set array[minIndex] to array[startScan]
+  Set array[startScan] to minValue // Swap
+End For
+```  
+
+```c++
+void selectSort2(int arr[], int size) {
+  int startScan, minIndex, minValue;
+  for(startScan = 0; startScan < size -1; startScan++) {
+    minIndex = startScan;
+    minValue = arr[startScan];
+    for(int currentIndex = startScan + 1; currentIndex < size; currentIndex++) {
+      if(arr[currentIndex] < minValue) {
+        minValue = arr[currentIndex];
+        minIndex = currentIndex;
+      }
+    }
+    swap(arr, minIndex, startScan);
+  }
+}
+
+
+void selectSort(int arr[], int size) {
+  for(int i = 0; i < size; i++) {
+    // Based on current index and search the rest of array
+    int minIndex = findMinIndex(arr, size, i);
+    swap(arr, i, minIndex);
+  }
+}
+
+int findMinIndex(int arr[], int size, int curInedx) {
+  int minIndex = curInedx;
+  for(int i = curInedx + 1; i < size; i++) {
+    if(arr[i] < arr[curInedx]) {
+      minIndex = i;
+    }
+  }
+  return minIndex;
+}
+
+void swap(int* arr, int i, int j) {
+  int temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+```
+
 
 ## Insertion Sort
 
@@ -91,4 +185,63 @@ The objects in the std::set are stored as const StudentT. So when you try to cal
  std::string Person::getName() const {
   return name;
 }
+```
+
+***
+
+## Vector with BubbleSort
+
+```c++
+// Function prototypes
+void displayVector(vector<int>);
+void sortVector(vector<int> &);
+
+int main() {
+  const int SIZE = 6;
+  vector<int> values(SIZE);
+
+  cout << "Please enter " << SIZE << " Integers separated by spaces. \n";
+  for(int i = 0; i < SIZE; i++) {
+    cin >> values[i];
+  }
+
+  cout << "\n The unsorted values entered are : \n";
+  displayVector(values);
+
+  sortVector(values);
+  cout << "\n Sorted Vector are: \n";
+  displayVector(values); 
+  return 0;
+}
+
+/*********************************************************************
+** Function:     sortVector(vector<int> &);
+** Argument:  The reference(Address) of vector
+** Return  :  Void. But it will use passing by reference to change 
+**            the origin value of vector in the main function stack
+*********************************************************************/
+
+void sortVector(vector<int> &number) {
+  int temp;
+  bool swaped = false;
+
+  do{
+    swaped = false;
+    for(int i = 0; i < number.size() - 1; i++) {
+      if(number.at(i) > number.at(i+1)) {
+        temp = number.at(i);
+        number.at(i) = number.at(i+1);
+        number.at(i+1) = temp;
+        swaped = true;
+      }
+    }
+  } while (swaped);
+}
+
+void displayVector(vector<int> number) {
+  for(int i = 0; i < number.size(); i++) {
+    cout << number.at(i) << endl;
+  }
+}
+
 ```
