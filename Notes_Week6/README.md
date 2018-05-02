@@ -62,3 +62,61 @@ factorial(4) = 4 * factorial(3)
                                   ------------ basic case =>
              = 4 * 3 * 2 * 1 * 1
 ```
+```c++
+int factorial(int num) {
+  if(num == 1) {
+    return 1;
+  }
+  cout << "Current num: " << num << endl;
+  return num * factorial(num - 1);
+}
+```
+
+***
+
+## Quick Sort (Used Divide and Conquer Algorithm)
+
+[Quick Sort](https://www.youtube.com/watch?v=COk73cpQbFQ)
+
+```c++
+void quickSort(int arr[], int start, int end);
+int partition(int arr[], int start, int end);
+void swap(int arr[], int i, int j);
+
+
+void quickSort(int arr[], int start, int end) {
+  if(start >= end) return;
+  int partitionIndex = partition(arr, start, end);
+  cout << "PartitionIndex:" << partitionIndex << endl;
+  quickSort(arr, start, partitionIndex - 1);
+  quickSort(arr, partitionIndex + 1, end);
+}
+
+
+int partition(int arr[], int start, int end) {
+  int partitionIndex = start; // 界線
+  int pivot = arr[end];
+  for(int i = start; i < end; i++) {
+    if(arr[i] <= pivot) {
+      swap(arr, i, partitionIndex);
+      partitionIndex++;
+    }
+  }
+  swap(arr, end, partitionIndex);
+  return partitionIndex;
+}
+
+
+void swap(int arr[], int i, int j) {
+  int temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+```
+***
+
+## Merge Sort
+[Merge Sort](https://www.youtube.com/watch?v=TzeBrDU-JaY)
+
+
+***
