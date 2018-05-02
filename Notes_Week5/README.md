@@ -245,3 +245,70 @@ void displayVector(vector<int> number) {
 }
 
 ```
+
+## Computational Problems and Basic Step
+Input: Dose not mean a set of data entered by the user. It means the form of the data used by the algorithm solving the problem. 
+Output: Means the result created by the algorithm that soves the problem.
+
+## Asymptotic Complexity and the Big O Notation
+### O(1)
+A function f(n) is in this class if there is a constant K > 0 such that f(n) <= K for all n >= 1. An algorithm whose worst case complexity function is in this class is said to run in constant time.
+ 
+### O(log2n)
+Algorithm in this class run logarithmic time. A huge increase in the size of the problem results in only a small increase in the running time of the algorithm. (The Binary Search)
+
+### O(n)
+Algorithm in this class run in linear time. Any increase in the size of the problem results in a slight increase in the running time of the algorithm. Sequential search that make single pass, or a constant number of passes, over their input.
+
+### O(nlogn)
+The average case complexity of Quicksoer and MergeSort.
+
+### O(n^2)
+Quadratic time. The performance is characteristic of algorithms that make multiple passes over the input data using two nested loops. The worst-case complexity funcitons of bubble sort, selection sort and QuickSort all lie in this case.
+
+***
+
+## Pointers
+A variable that stores an address is called a pointer variable, but is often simply referred to as just a pointer. The definition of a pointer variable, say ptr, must specify the type of data taht ptr will point to.
+```
+int *ptr
+```
+'*' allows you to pass from a pointer to the variable being pointed to, it's called the indirection operator.
+
+```
+name   |ptr     |    x  |(address of x is 0x7300)
+       --------- --------
+value  |0x7300  |   25  |
+```
+
+You can use a pointer to indirectly access and modify the variable being pointed to. ptr could be used to change the contents of the variable x.
+
+When the indirection opeartor is placed in front of a pointer variable name, it "deference" the pointers. When working with a deference pointer, you're actually working with the value the pointer is pointing to.
+
+```c++
+  int x = 10, userInput;
+  int *ptr = &x;
+
+
+  cout << "X equal to: " << *ptr << endl;
+  cout << "Please input value to change x \n";
+  cin >> userInput;
+
+  *ptr = userInput;
+
+  cout << "New Value is :" << *ptr << endl;
+```
+
+## The Relationship between arrays and pointers
+Array name can be used as pointer constants, and pointers can be used as array names.
+
+```c++
+  int arr[] = {1,2,3,4};
+  int* arrPtr = NULL;
+
+  arrPtr = arr;
+
+  for(int i = 0; i < 4; i++) {
+    cout << *(arrPtr + i) << endl;
+  }
+```

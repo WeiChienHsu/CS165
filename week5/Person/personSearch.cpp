@@ -72,8 +72,8 @@ int personSearch(const std::vector<Person> &vec, std::string target) {
   // Implement the Binary Search
   // If Name in the middle is <= target, set the new start point in that middle point
   // If Name in the middle is > target, set the new end point the that middle point
-  // To avoid the corner case, we use start + 1 < end to let start and end pointers stay
-  // in different number
+  // To avoid the corner case(Duplicate People in the vector), we use start + 1 < end 
+  // to let start and end pointers stay in different number
 
   while(start + 1 < end) {
     int middle = start + (end - start) / 2;
