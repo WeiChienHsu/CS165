@@ -99,23 +99,23 @@ bool vectorPuzzle(std::vector<int> &vec, int current, bool visited[]) {
 }
 
 
-int main() {
-  std::vector<int> vec;
-  vec.push_back(1);
-  vec.push_back(3);
-  vec.push_back(2);
-  vec.push_back(1);
-  vec.push_back(3);
-  vec.push_back(4);
-  vec.push_back(0);
-  // vec.push_back(4);
-  // vec.push_back(0);
+// int main() {
+//   std::vector<int> vec;
+//   vec.push_back(1);
+//   vec.push_back(3);
+//   vec.push_back(2);
+//   vec.push_back(1);
+//   vec.push_back(3);
+//   vec.push_back(4);
+//   vec.push_back(0);
+//   // vec.push_back(4);
+//   // vec.push_back(0);
   
-  if(vectorPuzzle(vec)) {
-    std::cout << "true" << std::endl;
-  } else {
-    std::cout << "False" << std::endl;
-  }
+//   if(vectorPuzzle(vec)) {
+//     std::cout << "true" << std::endl;
+//   } else {
+//     std::cout << "False" << std::endl;
+//   }
 
-  return 0;
-}
+//   return 0;
+// }

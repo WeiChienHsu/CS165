@@ -42,13 +42,13 @@ bool isDecreasing(int arr[], int size) {
     }
 }
 
-int main() {
-  int arr[]  = {1,2,3,4,5};
-  int arr2[] = {5,4,3,2,1};
-  int arr3[] = {5,4,4,3,2};
-  std::cout << isDecreasing(arr, 5) << std::endl;
-  std::cout << isDecreasing(arr2, 5) << std::endl;
-  std::cout << isDecreasing(arr3, 5) << std::endl;
+// int main() {
+//   int arr[]  = {1,2,3,4,5};
+//   int arr2[] = {5,4,3,2,1};
+//   int arr3[] = {5,4,4,3,2};
+//   std::cout << isDecreasing(arr, 5) << std::endl;
+//   std::cout << isDecreasing(arr2, 5) << std::endl;
+//   std::cout << isDecreasing(arr3, 5) << std::endl;
 
-  return 0;
-}
+//   return 0;
+// }
