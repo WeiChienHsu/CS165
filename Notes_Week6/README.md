@@ -171,3 +171,61 @@ int main() {
 ```
 
 ***
+
+## Factorial Function
+
+```c++
+int factorial(int num) {
+  if(num == 0) {
+      return 1;
+  } else {
+      return num * factorial(num - 1); 
+  }
+}
+```
+
+## Recursive gcd Function
+
+```c++
+// gcd(x, y) = gcd(y, x%y) -> if x % t == 0, y us gcd
+int gcd(int x, int y) {
+    if(x % y == 0) {
+      return y;
+    }
+    return gcd(y, x % y);
+}
+```
+
+## Fibonacci
+
+```c++
+int fib(int num) {
+  if(num == 0) return 0;
+  if(num == 1) return 1;
+
+  return fib(num - 1) + fib(num - 2);
+}
+```
+
+## Binary Search
+
+```c++
+int binarySearch_rec(int arr[], int start, int end, int target) {
+  if(start > end) {
+    return -1;
+  }
+
+  int mid = start + (end - start) / 2;
+
+  if(arr[mid] == target) {
+    return mid;
+  } else if(arr[mid] > target) {
+    return binarySearch_rec(arr, start, mid -1, target);
+  } else {
+    return binarySearch_rec(arr, mid + 1, end, target);
+  }
+}
+```
+
+## Quick Sorty in Recursive way
+
