@@ -229,3 +229,56 @@ int binarySearch_rec(int arr[], int start, int end, int target) {
 
 ## Quick Sorty in Recursive way
 
+- 做 partition : 先選定最後一個數字當作 pivot，使用一個for loop當作scan，從start到end-1個數，另外取start作為pibotBundary，當arr[scan] < pivotValue 時，swap sacn 和 pivotBoundry內的數字，並且將pivotBoundry ++，掃完整個array後，將原先最後一個pivot和當前的pivotBoundry數字swap，最後Return povitBoundry的位置（這個數字已經排序到所需的位置）
+
+- 有了pivotBoundry的位置後，我們再將此數組丟入quickSort中，先處理pivotBoundry以前的數字，當start < end 的時候，再次處理partition，然後丟入quickSrot中，接著我們處理quickSort pivotBoundry以的位置。（why not start = end: 因為當start==end的時候，代表只有傳入一個正確的pivotBoundry position)
+
+
+```
+1 3 2 6 5 4
+          *
+1 3 2 4 5 6
+      *
+1 3 2   4   5 6
+    *         *
+1  2  3  4  5 6
+   *
+1 2 3 4 5 6 
+```
+
+
+```c++
+int partition(int arr[], int start, int end);
+void quickSort(int arr[], int start, int end);
+void swap(int arr[], int j, int k);
+
+int partition(int arr[], int start, int end){
+  int pivotValue = arr[end];
+  int pivotB = start; // B for Boundry
+
+  for(int pos = start; pos < end; pos ++) {
+    if(arr[pos] < pivotValue) {
+      swap(arr, pos, pivotB);
+      pivotB++;
+    }
+  }
+
+  swap(arr, end, pivotB);
+  return pivotB;
+}
+
+
+void quickSort(int arr[], int start, int end) {
+  if(start < end) {
+    int p = partition(arr, start, end);
+    quickSort(arr, start, p-1);
+    quickSort(arr, p+1, end);
+  }
+}
+
+void swap(int arr[], int i, int j) {
+  int temp = arr[j];
+  arr[j] = arr[i];
+  arr[i] = temp;
+}
+```
