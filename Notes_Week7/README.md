@@ -655,3 +655,207 @@ int main(){
 ## Conclustion
 
 Overloading and overriding appears similar, but this is not the case. Functions can be overloaded but, any class can not further redefine the overloaded function in future. A virtual function cannot be overloaded; they can only be overridden.
+
+***
+
+# Difference Between Inheritance and Polymorphism
+
+[Difference Between Inheritance and Polymorphism](https://techdifferences.com/difference-between-inheritance-and-polymorphism.html)
+
+Inheritance allows, code reusability and the polymorphism is, the occurrence of one function with different form. The basic difference between inheritance and polymorphism is that inheritance allows the already existing code to be reused again in a program, and polymorphism provides a mechanism to dynamically decide what form of a function to be invoked.
+
+## Key Differences Between Inheritance and Polymorphism
+
+1. Inheritance is creating a class that derives its feature from an already existing class. On the other hand, polymorphism is an interface that can be defined in multiple forms.
+
+2. Inheritance is implemented on the classes whereas, the polymorphism is implemented on methods/functions.
+
+3. As inheritance allows a derived class to use the elements and methods defined in the base class, the derived class does not need to define those elements or method it again so, we can say it increases code reusability and hence, reduces the length of the code. On the other hand, polymorphism makes it possible for an object to decide what form of the method it wants to invoke at both compile time and run time.
+
+4. The inheritance can be classified as single inheritance, multiple inheritance, multilevel inheritance, hierarchical inheritance and hybrid inheritance. On the other hand, polymorphism is classified as overloading and overriding.
+
+*** 
+
+# This Pointer and constant member function
+
+By default the compiler provides each member function of a class with an implicit parameter that points to the object through which the member function is called.
+
+```c++
+class Example{
+  int x;
+  public:
+    Example(int a) { x = a; }
+
+    void setValue(int a) {
+      x = a;
+    }
+    void getValueAndObjectAddress() {
+      std::cout << "The object at address: " << this << std::endl;
+      std::cout << "The value is: " << this->x << std::endl;
+    }
+};
+
+int main() {
+  Example e(5);
+  e.getValueAndObjectAddress();
+  e.setValue(6);
+  e.getValueAndObjectAddress();  
+  return 0;
+}
+```
+
+## Static Member Variable
+It's possible to create a member variable that is shared by all the objects the same class.
+
+```c++
+#include <iostream>
+
+class StatDemo {
+  private:
+    static int x;
+    int y;
+
+  public:
+    void setX(int a) {
+      this->x = a;
+    }
+
+    void setY(int b) {
+      this->y = b;
+    }
+
+    void print_XY() {
+      std::cout<< "X: " << this->x << std::endl;
+      std::cout<< "Y: " << this->y << std::endl;
+    }
+
+};
+
+int StatDemo::x = 0;
+
+int main() {
+  StatDemo a;
+  StatDemo b;
+
+  a.setX(100);
+  a.setY(5);
+  b.setY(10);
+
+  a.print_XY();
+  b.print_XY();
+
+  return 0;
+}
+```
+
+***
+
+## Friends of Class
+
+A function that is not a member of a class but has access to the private members of the class.
+
+```
+friend <return type><function name>(<parameter type list>);
+```
+
+## Example
+
+- Allow Aux Class to access the corpBudget private variable in otehr Class Budget
+
+### aux.hpp
+```c++
+#ifndef AUX_HPP
+#define AUX_HPP
+
+class Aux {
+  private:
+    double auxBudget;
+  public:
+    Aux() { auxBudget = 0; }
+    void addBudget(double);
+    double getDivBudget() const { return auxBudget;}   
+};
+
+
+#endif
+
+```
+
+
+### budget.hpp
+- friend void Aux::addBudget(double);
+- Let addBudget in Aux class could access the private variable.
+
+```c++
+#ifndef BUDGET_HPP
+#define BUDGET_HPP
+#include "aux.hpp"
+
+class Budget {
+  private:
+    static double corpBudget;
+    double divBudget;
+  public:
+    Budget() { divBudget = 0;}
+    void addBudget(double b) {
+      this->divBudget += b;
+      this->corpBudget += divBudget;
+    }
+
+    double getDivBudget() const {return this->divBudget;}
+    static double getCorpBudget() {return corpBudget;} 
+    friend void Aux::addBudget(double);
+};
+
+#endif
+```
+
+### aux.cpp
+- addBudget used the private variable "corpBudget" in Budget class
+
+```c++
+#include "aux.hpp"
+#include "budget.hpp"
+
+// Define the friend function
+void Aux::addBudget(double b) {
+  auxBudget += b;
+  Budget::corpBudget += auxBudget;
+}
+```
+
+### budget.cpp
+- Assign a value to the static member
+```c++
+#include "budget.hpp"
+
+// Define for the static member
+double Budget::corpBudget = 0;
+```
+
+
+### main method
+- Output
+```
+10
+110
+```
+
+```c++
+#include <iostream>
+#include "budget.hpp"
+
+int main() {
+  Budget a;
+  a.addBudget(10);
+  std::cout << a.getCorpBudget() << std::endl;
+
+  Aux b;
+  b.addBudget(100);
+  
+  std::cout << a.getCorpBudget() << std::endl;
+
+  return 0;
+
+}
+```
