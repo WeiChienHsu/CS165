@@ -859,3 +859,96 @@ int main() {
 
 }
 ```
+***
+
+## Copy Constructors
+Special Constructor that is called whenever a new object is created and initialized with the data of another object of the same class.
+
+The default copy constructor copied the data of the existing object ot the new object using memberwise assignment.
+
+
+```c++
+class NumberArray {
+  private:
+    double *aPtr;
+    int arraySize;
+
+  public:
+    NumberArray(int size, double value) {
+      this->arraySize = size;
+      aPtr = new double[arraySize];
+      setValue(value);
+    }
+
+    void print() {
+      for(int i = 0; i < this->arraySize; i++) {
+        std::cout << this->aPtr[i] << " ";
+      }
+      std::cout<< " " << std::endl;
+    }
+
+    void setValue(double value) {
+      for(int i = 0; i < arraySize; i++) {
+        this->aPtr[i] = value;
+      }
+    }
+};
+
+int main() {
+  NumberArray first(3, 10.5);
+  NumberArray second = first;
+
+  std::cout << "Value stored in first Object is : " << std::endl;
+  first.print();
+  std::cout << "Value stored in second Object is" << std::endl;
+  second.print();
+  std::cout << "Only change the second value" << std::endl;
+
+  second.setValue(20);
+
+  std::cout << "Value stored in first Object is : " << std::endl;
+  first.print();
+  std::cout << "Value stored in second Object is" << std::endl;
+  second.print();
+  
+
+  return 0;
+}
+```
+
+The reason changing the data in one object changes the other objects is that the memberwise assignment performed by the default copy constructor copies the value of the pointer in the first object to the pointer in the second object. Leaving both pointers point to the sane data in memory. Thus when one of the objects changes its data through its pointer, it affects the other object as well.
+
+
+## Programmer-Defined Copy Constructor
+
+Must have a single parameter that is a reference to the same class.
+
+```c++
+NumberArray(const NumberArray &obj)
+```
+
+The copy constructor avoid the problem of the default copy consturctor by allocating separate memory for the pointer of the new object before doing the copy:
+
+```c++
+NumberArray(const Number &obj) {
+  arraySize = obj.arraySize;
+  aPtr = new double[arraySize];
+  for(int i = 0; i < arraySize; i++) {
+    aPtr[i] = obj.aPtr[i];
+  }
+}
+
+```
+The copy constructor should not change the object being copied, so it declared its argument as const. 
+
+```
+Value stored in first Object is :
+10.5 10.5 10.5
+Value stored in second Object is
+10.5 10.5 10.5
+Only change the second value
+Value stored in first Object is :
+10.5 10.5 10.5
+Value stored in second Object is
+20 20 20
+```
