@@ -35,6 +35,21 @@ class NumberArray {
         this->aPtr[i] = value;
       }
     }
+
+    // Overload operator
+    NumberArray& operator=(const NumberArray &right) {
+      if(this != &right) {
+        if(arraySize > 0) {
+          delete [] aPtr;
+        }
+        arraySize = right.arraySize;
+        aPtr = new double[arraySize];
+        for(int i = 0; i < arraySize; i++) {
+          aPtr[i] = right.aPtr[i];
+        }
+      }
+      return *this;
+    }
 };
 
 int main() {
@@ -53,7 +68,23 @@ int main() {
   first.print();
   std::cout << "Value stored in second Object is" << std::endl;
   second.print();
+
+  NumberArray third(3, 10);
+  NumberArray fourth(5, 20);
   
+  std::cout << "Value stored in thrid Object is : " << std::endl;
+  third.print();
+  std::cout << "Value stored in fourth Object is" << std::endl;
+  fourth.print();
+  std::cout << "Assign third to fourth" << std::endl;
+
+  fourth.operator=(third);
+  // fourth = third;
+
+  std::cout << "Value stored in thrid Object is : " << std::endl;
+  third.print();
+  std::cout << "Value stored in fourth Object is" << std::endl;
+  fourth.print();
 
   return 0;
 }
