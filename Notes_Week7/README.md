@@ -32,296 +32,6 @@
 - protected: 只有自己，friend class或者子類別才可以看得到。
 - public: 任何可以看到這個class的地方都可以使用。
 
-
-
-## Operator overloading
-- Friend Function: can access variable directly (Even the private variable)
-- Undirectly Function: Must use accrssors(getValue() in the class)
-- Overloading as member function: Actually calling on class
-```c++
-#include <iostream>
-using namespace std;
-
-class integer {
-  public:
-    integer() {
-      this -> val = 0;
-    }
-
-    integer(int value) {
-      this -> val = value;
-    }
-
-    int value() {
-      return val;
-    }
-
-    int value() const{
-      return val;
-    }
-
-    void set_value(int value) {
-      this -> val = value;
-    }
-    // Friend function
-    friend const integer operator-(const integer&, const integer&);
-
-    // Member Function
-    const integer operator*(const integer &RHS) {
-      return (this-> val * RHS.val);
-    }
-
-  private:
-    int val;
-};
-
-// Undirectly Function
-const integer operator+(const integer &LHS, const integer &RHS) {
-  return integer(LHS.value() + RHS.value());
-}
-
-// Used Frinend Type of method to give the access for private value
-const integer operator-(const integer &LHS, const integer &RHS) {
-  return integer(LHS.val - RHS.val);
-}
-
-int main() {
-  integer a(2);
-  integer b(5);
-  integer c = a + b;
-  
-  cout << a.value() << " + " << b.value() << " = " << c.value() << endl;
-  cout << a.value() << " - " << b.value() << " = " << (a-b).value() << endl;
-  cout << a.value() << " * " << b.value() << " = " << a.operator*(b).value() << endl;
-  return 0;
-}
-```
-
-### Member Function
-- The best way to overload operator function
-```c++
-  const integer operator*(const integer &RHS) {
-      return (this-> val * RHS.val);
-    }
-```
-
-## I/O operator
-
-```c++
-
-    // Friend functions to I/O inside the class
-    friend std::ostream& operator<<(std::ostream &outs, const integer& foo);
-    friend std::istream& operator>>(std::istream &in, const integer& foo);   
-
-
-std::ostream& operator<<(std::ostream &outs, const integer& foo){
-    outs << foo.val;
-    return outs;
-}
-
-std::istream& operator>>(std::istream &in, const integer& foo){
-  in >> foo.val;
-  return in;
-}
-```
-
-## Assignment operator
-#### Default Constructor
-#### Assignment Operator
-#### Copy Constructor
-#### Destructor
-
-```c++
-    // Default Constructor
-    integer() {
-      this -> val = 0;
-    }
-
-    // Assignment Operator
-    integer& operator=(const integer &RHS){
-      this->val = RHS.val;
-      return *this;
-    }
-
-    // Copy Constructor
-    integer(integer &value) {
-      this->val = value.val;
-    }
-
-    // Destructor
-    ~integer() {
-      // intentionaly left empty (to delete pointer in stack)
-    }
-```
-
-***
-
-# Inheritance
-
-### Emample of Inheritance
-
-```c++
-#include <iostream>
-#include <cmath>
-
-enum { NOCOLOR, PURPLE, RED, BLUE, GREEN, BLACK};
-
-class shape{
-  public:
-    shape() {
-      this->side_count = -1;
-      this->color = NOCOLOR;
-    }
-
-    shape(int sides) {
-      this->side_count = sides;
-    }
-
-    double area() {
-      if(side_count == -1) {
-        return -17;
-      } else {
-        return 14;
-      }
-    }
-
-    double perimeter() {
-      return 0;
-    }
-
-  protected:
-    int side_count;
-    int color;
-
-};
-
-// Triangle inheritaed shape
-class triangle : public shape{
-  public:
-  // Default Constructor
-    triangle() : shape(3) {
-      this->side1 = 0;
-      this->side2 = 0;
-      this->side3 = 0;
-    }
-
-    triangle(double side1, double side2, double side3) : shape(3) {
-      this->side1 = side1;
-      this->side2 = side2;
-      this->side3 = side3;
-    }
-
-    // Redefined our parent's method (Not same as the Overloading -> give a different signature)
-    double area() {
-
-      // this->perimeter()
-      // Since the this is a pointer to the Instance of Object in this class
-      double s = (*this).perimeter() /  2;
-      return std::sqrt( s * (s - this->side1) *
-                            (s - this->side2) *
-                            (s - this->side3)
-                      );
-    }
-
-    double perimeter() {
-      return this->side1 + this->side2 + this->side3;
-    }
-
-  protected:
-    double side1;
-    double side2;
-    double side3;
-
-};
-
-// Rectangle
-class rectangle : public shape{
-  public:
-  // Default Constructor
-    rectangle() : shape(4) {
-      this->side1 = 0;
-      this->side2 = 0;
-    }
-
-    rectangle(double side1, double side2) : shape(4) {
-      this->side1 = side1;
-      this->side2 = side2;
-    }
-
-    // Redefined our parent's method (Not same as the Overloading -> give a different signature)
-    double area() {
-      return  this->side1 * this->side2;
-    }
-
-    double perimeter() {
-      return this->side1 * 2 + this->side2 * 2;
-    }
-
-  protected:
-    double side1;
-    double side2;
-};
-
-// Square inherited from rectangle
-
-class square : public rectangle{
-  // Don't inherit Constructor and Destructor(Which was automacatially be called by compiler when this class ends)
-  // Don't inherit private function (Used protected to access private-like function which only for child)
-
-  public:
-    square() : rectangle() {
-      this->side1 = 0;
-      this->side2 = 0;
-    }
-
-    square(double side) : rectangle(side, side) {
-      this->side1 = side;
-      this->side2 = side;
-    }
-
-    // Directly call the parent function of area in rectangle
-
-    double area() {
-      return rectangle::area();
-    }
-
-    double perimeter() {
-      return rectangle::perimeter();
-    }
-
-  protected:
-    
-};
-
-
-
-int main() {
-  shape s;
-  triangle t(3,4,5);
-  rectangle r(4,5.5);
-  square q(10);
-  
-  std::cout << "Area of shape s: " << s.area() << std::endl;
-  std::cout << "Perimeter of shape s: " << s.perimeter() << std::endl;
-  
-  std::cout << "Area of triangle t: " << t.area() << std::endl;
-  std::cout << "Perimeter of triangle t: " << t.perimeter() << std::endl;
-
-    
-  std::cout << "Area of rectangle r: " << r.area() << std::endl;
-  std::cout << "Perimeter of rectangle r: " << r.perimeter() << std::endl;
-
-
-  std::cout << "Area of Square q: " << q.area() << std::endl;
-  std::cout << "Perimeter of Square q: " << q.perimeter() << std::endl;
-
-  return 0;
-}
-```
-
-## 
-
-
 ***
 
 # Polymorphism
@@ -952,3 +662,548 @@ Value stored in first Object is :
 Value stored in second Object is
 20 20 20
 ```
+
+***
+
+## Operator Overloading
+Copy Constructor only come into play when an object is being initialized at cretion time. In particular, copy constructor are not called in an assignment.
+
+```c++
+NumberArray frist(10, 20);
+NumberArray second(20, 20);
+
+fist = second; //Copy constructor not be called
+```
+
+We need to modify the behavior of the assignment when it is applied to objects of class that have pointer members. 
+
+```c++
+class NumberArray{
+  private:
+    double *aPter;
+    int arraySize;
+  public:
+    void operator=(const NumberArray &right); // Overloaded operator
+    NumberArray(const NumberArray &) // Copy Constructor
+    NumberArray(int size, double value) // Constructor
+    ~NumberArray() {if (arraySize > 0) delete [] aPtr} // Destructor
+    void print() const;
+    void setValue(double value);
+};
+```
+
+#### Define a overloading operator!
+
+Paramters to operator functions do not have to be passed by reference, nor do they have to be declared const. In this example, we have used a reference for efficiency reasons.
+- If the original pointer in LHS is not equal to the RHS, we need to replace the original pointer
+- If the Array that was pointed by the original pointer, we need to delete the array in the memory
+- Give a new arraySize for init the new Array
+- Give a new pointer
+- Copy the number from RHS array into the new Array
+- Return (by Reference) the object *this (deference) on the left side of the assignment. 
+
+```c++
+    NumberArray& operator=(const NumberArray &right) {
+      if(this != &right) {
+        if(arraySize > 0) {
+          delete [] aPtr;
+        }
+        arraySize = right.arraySize;
+        aPtr = new double[arraySize];
+        for(int i = 0; i < arraySize; i++) {
+          aPtr[i] = right.aPtr[i];
+        }
+      }
+      return *this;
+    }
+```
+- Use the assignment operator
+```c++
+  fourth.operator=(third);
+  // fourth = third;
+```
+
+```
+Value stored in thrid Object is :
+10 10 10
+Value stored in fourth Object is
+20 20 20 20 20
+Assign third to fourth
+Value stored in thrid Object is :
+10 10 10
+Value stored in fourth Object is
+10 10 10
+```
+***
+
+## Overloading Other Operators
+
+```c++
+#include <iostream>
+
+class Example {
+  private:
+    int n;
+  public:
+    Example(int num) {
+      this->n = num;
+    }
+
+    int getValue() const {
+      return this->n;
+    }
+
+    void operator=(const Example &right) {
+      this->n = right.n;
+      std::cout << "Assign the value of: " << right.n << " into LSH" << std::endl;
+      std::cout << "Value of LSH now is: " << this->n << std::endl;
+    }
+};
+
+int main() {
+    Example LHS(10);
+    Example RHS(100);
+
+    std::cout << "LHS : " << LHS.getValue() << std::endl;
+    LHS = RHS;
+    return 0;
+
+}
+```
+
+***
+
+## Operator overloading
+- Friend Function: can access variable directly (Even the private variable)
+- Undirectly Function: Must use accrssors(getValue() in the class)
+- Overloading as member function: Actually calling on class
+
+```c++
+#include <iostream>
+using namespace std;
+
+class integer {
+  public:
+    integer() {
+      this -> val = 0;
+    }
+
+    integer(int value) {
+      this -> val = value;
+    }
+
+    int value() {
+      return val;
+    }
+
+    int value() const{
+      return val;
+    }
+
+    void set_value(int value) {
+      this -> val = value;
+    }
+    // Friend function
+    friend const integer operator-(const integer&, const integer&);
+
+    // Member Function
+    const integer operator*(const integer &RHS) {
+      return (this-> val * RHS.val);
+    }
+
+  private:
+    int val;
+};
+
+// Undirectly Function
+const integer operator+(const integer &LHS, const integer &RHS) {
+  return integer(LHS.value() + RHS.value());
+}
+
+// Used Frinend Type of method to give the access for private value
+const integer operator-(const integer &LHS, const integer &RHS) {
+  return integer(LHS.val - RHS.val);
+}
+
+int main() {
+  integer a(2);
+  integer b(5);
+  integer c = a + b;
+  
+  cout << a.value() << " + " << b.value() << " = " << c.value() << endl;
+  cout << a.value() << " - " << b.value() << " = " << (a-b).value() << endl;
+  cout << a.value() << " * " << b.value() << " = " << a.operator*(b).value() << endl;
+  return 0;
+}
+```
+
+### Member Function
+- The best way to overload operator function
+```c++
+  const integer operator*(const integer &RHS) {
+      return (this-> val * RHS.val);
+    }
+```
+
+## I/O operator
+
+```c++
+
+    // Friend functions to I/O inside the class
+    friend std::ostream& operator<<(std::ostream &outs, const integer& foo);
+    friend std::istream& operator>>(std::istream &in, const integer& foo);   
+
+
+std::ostream& operator<<(std::ostream &outs, const integer& foo){
+    outs << foo.val;
+    return outs;
+}
+
+std::istream& operator>>(std::istream &in, const integer& foo){
+  in >> foo.val;
+  return in;
+}
+```
+
+## Assignment operator
+#### Default Constructor
+#### Assignment Operator
+#### Copy Constructor
+#### Destructor
+
+```c++
+    // Default Constructor
+    integer() {
+      this -> val = 0;
+    }
+
+    // Assignment Operator
+    integer& operator=(const integer &RHS){
+      this->val = RHS.val;
+      return *this;
+    }
+
+    // Copy Constructor
+    integer(integer &value) {
+      this->val = value.val;
+    }
+
+    // Destructor
+    ~integer() {
+      // intentionaly left empty (to delete pointer in stack)
+    }
+```
+
+***
+
+## Convert Constructors
+
+In C++, if a class has a constructor which can be called with a single argument, then this constructor becomes conversion constructor because such a constructor allows automatic conversion to the class being constructed.
+
+```c++
+class Example {
+  private:
+    int size;
+  public:
+    // Convert Constructor with one parameter
+    Example(int num) {
+      this->size = num;
+    }
+
+    int getSize() {
+      return this->size;
+    }
+};
+
+int main() {
+  // Normal Assignment
+  Example a(10);
+  Example c(10);
+  
+  // Use Convert Constructor
+  Example b = 20;
+  c = 30;
+
+  std::cout << a.getSize() << std::endl;
+  std::cout << b.getSize() << std::endl;
+  std::cout << c.getSize() << std::endl;
+
+  return 0;
+
+}
+
+```
+***
+## Emaxple from Assignment
+
+
+```c++
+#ifndef MYINTEGER_HPP
+#define MYINTEGER_HPP
+
+class MyInteger {
+  private:
+    int *pInteger;
+
+  public:
+    MyInteger(int);
+    MyInteger(const MyInteger &);
+    ~MyInteger();
+    MyInteger& operator=(const MyInteger &);
+    void setMyInt(int);
+    int getMyInt() const;
+};
+
+#endif
+```
+
+```c++
+# include <iostream>
+# include "MyInteger.hpp"
+
+
+MyInteger::MyInteger(int num) {
+  pInteger = new int;
+  *pInteger = num;
+}
+
+MyInteger::MyInteger(const MyInteger &obj){
+  pInteger = new int;
+  *pInteger = *(obj.pInteger);
+}
+
+MyInteger::~MyInteger() {
+  delete []pInteger;
+  pInteger = nullptr;
+}
+
+MyInteger& MyInteger::operator=(const MyInteger &right) {
+  delete[] pInteger;
+  pInteger = new int;
+  *pInteger = *(right.pInteger);
+  return *this;
+}
+
+
+void MyInteger::setMyInt(int num) {
+  *pInteger = num;
+}
+
+int MyInteger::getMyInt() const {
+  return *pInteger;
+}
+```
+
+***
+
+# Inheritance
+
+### Emample of Inheritance
+
+```c++
+#include <iostream>
+#include <cmath>
+
+enum { NOCOLOR, PURPLE, RED, BLUE, GREEN, BLACK};
+
+class shape{
+  public:
+    shape() {
+      this->side_count = -1;
+      this->color = NOCOLOR;
+    }
+
+    shape(int sides) {
+      this->side_count = sides;
+    }
+
+    double area() {
+      if(side_count == -1) {
+        return -17;
+      } else {
+        return 14;
+      }
+    }
+
+    double perimeter() {
+      return 0;
+    }
+
+  protected:
+    int side_count;
+    int color;
+
+};
+
+// Triangle inheritaed shape
+class triangle : public shape{
+  public:
+  // Default Constructor
+    triangle() : shape(3) {
+      this->side1 = 0;
+      this->side2 = 0;
+      this->side3 = 0;
+    }
+
+    triangle(double side1, double side2, double side3) : shape(3) {
+      this->side1 = side1;
+      this->side2 = side2;
+      this->side3 = side3;
+    }
+
+    // Redefined our parent's method (Not same as the Overloading -> give a different signature)
+    double area() {
+
+      // this->perimeter()
+      // Since the this is a pointer to the Instance of Object in this class
+      double s = (*this).perimeter() /  2;
+      return std::sqrt( s * (s - this->side1) *
+                            (s - this->side2) *
+                            (s - this->side3)
+                      );
+    }
+
+    double perimeter() {
+      return this->side1 + this->side2 + this->side3;
+    }
+
+  protected:
+    double side1;
+    double side2;
+    double side3;
+
+};
+
+// Rectangle
+class rectangle : public shape{
+  public:
+  // Default Constructor
+    rectangle() : shape(4) {
+      this->side1 = 0;
+      this->side2 = 0;
+    }
+
+    rectangle(double side1, double side2) : shape(4) {
+      this->side1 = side1;
+      this->side2 = side2;
+    }
+
+    // Redefined our parent's method (Not same as the Overloading -> give a different signature)
+    double area() {
+      return  this->side1 * this->side2;
+    }
+
+    double perimeter() {
+      return this->side1 * 2 + this->side2 * 2;
+    }
+
+  protected:
+    double side1;
+    double side2;
+};
+
+// Square inherited from rectangle
+
+class square : public rectangle{
+  // Don't inherit Constructor and Destructor(Which was automacatially be called by compiler when this class ends)
+  // Don't inherit private function (Used protected to access private-like function which only for child)
+
+  public:
+    square() : rectangle() {
+      this->side1 = 0;
+      this->side2 = 0;
+    }
+
+    square(double side) : rectangle(side, side) {
+      this->side1 = side;
+      this->side2 = side;
+    }
+
+    // Directly call the parent function of area in rectangle
+
+    double area() {
+      return rectangle::area();
+    }
+
+    double perimeter() {
+      return rectangle::perimeter();
+    }
+
+  protected:
+    
+};
+
+
+
+int main() {
+  shape s;
+  triangle t(3,4,5);
+  rectangle r(4,5.5);
+  square q(10);
+  
+  std::cout << "Area of shape s: " << s.area() << std::endl;
+  std::cout << "Perimeter of shape s: " << s.perimeter() << std::endl;
+  
+  std::cout << "Area of triangle t: " << t.area() << std::endl;
+  std::cout << "Perimeter of triangle t: " << t.perimeter() << std::endl;
+
+    
+  std::cout << "Area of rectangle r: " << r.area() << std::endl;
+  std::cout << "Perimeter of rectangle r: " << r.perimeter() << std::endl;
+
+
+  std::cout << "Area of Square q: " << q.area() << std::endl;
+  std::cout << "Perimeter of Square q: " << q.perimeter() << std::endl;
+
+  return 0;
+}
+```
+
+## Constructor, Destructor and Inheritance
+
+Recall that constructors are automatically called by the compiler whenever an object of a class is being created. Because every object of a derived class can be refarded as having an object of the base class embedded within it.
+
+base constructor -> derived class constructor (child class) -> derived class destructor -> base destructor
+
+```c++
+class BaseDemo {
+  public:
+    BaseDemo() {
+      cout << "Constructor in Base" << endl;
+    }
+
+    ~BaseDemo() {
+      cout << "Destructor in Base" << endl;
+    }
+};
+
+class ChildDemo : public BaseDemo {
+  public:
+    ChildDemo() {
+    cout << "Constructor in Child" << endl;
+    }
+
+    ~ChildDemo() {
+      cout << "Destructor in Child" << endl;
+    }
+
+};
+
+int main() {
+  ChildDemo a;
+  return 0;
+}
+```
+```
+Constructor in Base
+Constructor in Child
+Destructor in Child
+Destructor in Base
+```
+
+***
+
+## Protected Members and Class Access
+
+
+***
