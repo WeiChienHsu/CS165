@@ -1,13 +1,30 @@
 /*********************************************************************
 ** Author:       Wei-Chien Hsu
 ** Date:         05/15/18
-** Description:  
-                 1.should have a class variable of type pointer-to-int called pInteger.
-                 2.should have a constructor that takes as a parameter an int
-                 3.should have a destructor 
-                 4.should have a copy constructor
-                 5.should overload the = operator
-                 6.should have methods called setMyInt and getMyInt.
+** Description:  A class called Circle that inherits from Shape. 
+                 have a double field for it's radius
+                 have a set method for the radius
+                 have a constructor that takes a double parameter and passes it to the set method
+                 Override the Shape virtual methods to return the area and perimeter of a Circle
 *********************************************************************/
-#ifndef MYINTEGER_HPP
-#define MYINTEGER_HPP
+#ifndef CIRCLE_HPP
+#define CIRCLE_HPP
+#include "Shape.hpp"
+
+class Circle : public Shape {
+  public:
+
+    // Constructor: take a double parameter 
+    Circle(double);
+    // Override virtual methods
+    double area();
+    double perimeter();
+
+  private:
+    // double field for the radius
+    double radius;
+    // Set Method : Only make constructor could access set method
+    void setRadius(double);
+};
+
+#endif
