@@ -1,25 +1,43 @@
 /*********************************************************************
 ** Author:       Wei-Chien Hsu
 ** Date:         05/15/18
-** Description:   
-                 1. Constructor: will then dynamically allocate memory for an int, 
-                    using pInteger, and assign the parameter's value to that memory. 
+** Description:  A class called Square that inherits from Rectangle
+                 Have a constructor that takes one double parameter 
+                 and passes it to the base class constructor for both 
+                 parameters (the body of the constructor will be empty).
 
-                 2. Destructor: will deallocate that memory when the object is destroyed.
-                 3. Copy Constructor: will correctly make a separate copy of the memory 
-                    pInteger points to, and make pInteger in the new object point to it.
-                 4. Operator Overloading: each of the two objects involved has its own 
-                    separate copy of the memory that its own pInteger points to.  
-                    The =operator should return a reference to the object pointed to by 
-                    the this pointer. 
-                 5. setMyInt & getMyInt : getting and setting the value of the int that pInteger points to.
+                 
+                 Override the virtual setLength() and setWidth() functions 
+                 of its base class such that if either of its dimensions is 
+                 set to a new value, then both of its dimensions will be set 
+                 to that new value (so that it remains a square).
 *********************************************************************/
 # include <iostream>
 # include "Square.hpp"
 
 /***********************************
 ** Constructor
-** dynamically allocate memory for an int, 
-** using pInteger, and assign the parameter's 
-** value to that memory. 
+** takes one double parameter 
+** and passes it to the base class constructor for both 
+** parameters (the body of the constructor will be empty).
 ************************************/
+Square::Square(double side) : Rectangle::Rectangle(side, side) {
+  // the body of the constructor will be empty
+}
+
+/***********************************
+** setLength(double)
+** Override the virtual setLength() functions of its base class 
+************************************/
+void Square::setLength(double side) {
+  Rectangle::setLength(side);
+}
+
+/***********************************
+** setWidth(double)
+**  Override the virtual setWidth() functions of its base class 
+************************************/
+void Square::setWidth(double side) {
+  Rectangle::setWidth(side);
+}
+
