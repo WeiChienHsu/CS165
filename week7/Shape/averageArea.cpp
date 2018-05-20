@@ -29,26 +29,26 @@ double averageArea(std::vector<Shape*> vec) {
   return total / size;
 }
 
-int main() {
+// int main() {
 
-  Circle c(4.0);
-  std::cout << c.area() << std::endl;
-  std::cout << c.perimeter() << std::endl;
+//   Circle c(4.0);
+//   std::cout << c.area() << std::endl;
+//   std::cout << c.perimeter() << std::endl;
 
-  Rectangle r(4.0, 8.0);
-  std::cout << r.area() << std::endl;
-  std::cout << r.perimeter() << std::endl;
+//   Rectangle r(4.0, 8.0);
+//   std::cout << r.area() << std::endl;
+//   std::cout << r.perimeter() << std::endl;
 
-  Square s(5.0);
-  std::cout << s.area() << std::endl;
-  std::cout << s.perimeter() << std::endl;
+//   Square s(5.0);
+//   std::cout << s.area() << std::endl;
+//   std::cout << s.perimeter() << std::endl;
 
-  std::vector<Shape*> vec;
-  vec.push_back(&c);
-  vec.push_back(&r);
-  vec.push_back(&s);
+//   std::vector<Shape*> vec;
+//   vec.push_back(&c);
+//   vec.push_back(&r);
+//   vec.push_back(&s);
 
-  std::cout << averageArea(vec) << std::endl;
+//   std::cout << averageArea(vec) << std::endl;
   
-  return 0;
-}
+//   return 0;
+// }
