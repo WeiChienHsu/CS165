@@ -233,3 +233,59 @@ int main() {
 }
 
 ```
+
+***
+## Static Function
+
+The this pointer cannot be used in a static member function since static member function are not called through any instance of their class. Moreover, a static member function cannot access an instance member of its class unless it specifies what instance the member belongs to.
+
+For example, in the class:
+
+```c++
+class StatAccess {
+  private:
+    int x;
+  public:
+  static void output(StatAccess a) {
+    cout << a.x;
+  }
+  StatAccess(int x) { this-> x = x}
+}
+
+***
+
+# Function Template
+
+A function template is a generic function that can work with different data types. The programmer writes the specificaions of the function but substitutes parameters for data types. When the compiler encounters a call to the function, it denerates code to handle the specific data type used in the call.
+
+A function templates is not an actual function, but a "mold" the compiler uses to generate one or more functions. When writing a function template, you do not have to specify actuall types for the parameters, return value, or local variables. Instead, you use a type parameter to specify a generic data type. 
+
+- T is the type parameter, or generic data type. The header defines square as a function that returns a value of type T and uses a parameter, number, which is also type T.
+
+```c++
+// Template definition for square function
+template <class T>
+T square(T number) {
+  return number * number;
+}
+```
+
+```c++
+int main() {
+
+  cout << "Enter an INTEGER\n";
+  int iValue;
+  cin >> iValue;
+
+
+  cout << "The square is: " << square(iValue) << endl;
+
+  cout << "Enter a Double\n";
+  double dValue;
+  cin >> dValue;
+
+  cout << "The square is: " << square(dValue) << endl;
+
+  return 0;
+}
+```
