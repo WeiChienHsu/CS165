@@ -289,3 +289,241 @@ int main() {
   return 0;
 }
 ```
+***
+## Swap Function Template
+```c++
+template<class T>
+void swapAB(T &a, T &b) {
+  T temp = a;
+  a = b;
+  b = temp;
+}
+```
+- Or use the library of algorithm - swap
+
+```c++
+#include <algorithm> // Needed for swap
+swap(a, b);
+```
+***
+## Operators in Function Template
+
+```c++
+// Template for minimum of an array
+template <class T>
+T minimun(T arr[], int size) {
+  T smallest = arr[0];
+  for(int i = 0; i < size; i++) {
+    if(arr[i] < smallest) {
+      smallest = arr[i];
+    }
+  }
+  return smallest;
+}
+```
+
+***
+## Function Template with Multiple Types
+- More than one generic type may be used in a function template.
+
+```c++
+template <class T1, class T2, class T3>
+void echoAndReverse(T1 a1, T2 a2, T3 a3) {
+  cout << a1 << " : " << a2 << " : " << a3 << endl;
+  cout << a3 << " : " << a2 << " : " << a1 << endl; 
+}
+```
+
+***
+## Overriding Template
+
+```c++
+template <class T>
+T sum(T a1, T a2) {
+  return a1 + a2;
+}
+
+template <class T>
+T sum(T a1, T a2, T a3) {
+  return a1 + a2 + a3;
+}
+
+```
+
+***
+## Class Template
+Template might also be used to create generic classes and abstract data types.
+
+Function templates are used whenever we need several different functions that have the same problem-solving logic, but differ only in the types of the parameters they work with. 
+
+### Example : SimpleVector
+This class template will store elements of type T in a dynamically generated array. This explain why the pointer aptr, which will point to the base of this array, is declared to be of type T[]. We have used a unique_ptr for the type of aptr because a SimpleVector object will not share the dynamicaly allocated array with any other part of the program.
+
+```
+- SimpleVector<double>
+- SimpleVector<char>
+- SimpleVector<string>
+```
+#### SimpleVector.hpp
+- Constructor
+- Copy Constructor
+- Destructor
+- size method
+- Override [] operator
+- print method
+
+```c++
+#include <iostream>
+#include <cstdlib>
+#include <memory>
+using namespace std;
+
+// Exception for index out of range
+struct IndexOutOfRange {
+  const int index;
+  IndexOutOfRange(int ix) : index(ix) { }
+};
+
+template <class T>
+class SimpleVector {
+  private:
+    T *aptr;
+    int arraySize;
+  public:
+    SimpleVector(int);
+    SimpleVector(const SimpleVector &);
+    ~SimpleVector();
+    int size() const { return arraySize;}
+    T &operator[](int); // Overload [] operator
+    void print() const; // Outputs the array elements
+};
+```
+
+#### SimpleVector.cpp
+
+```c++
+#include <iostream>
+#include <cstdlib>
+#include <memory>
+#include "SimpleVector.hpp"
+using namespace std;
+
+/**************************************
+** Constructor for SimpleVector class.
+** Set the size of the array and 
+** allocates memory for it
+****************************************/
+template <class T>
+SimpleVector<T>::SimpleVector(int s) {
+  this->arraySize = s;
+  this->aptr = new T[this->arraySize];
+}
+
+/**************************************
+** Copy Constructor
+****************************************/
+template <class T>
+SimpleVector<T>::SimpleVector(const SimpleVector &obj) {
+  this->arraySize = obj.arraySize;
+  this->aptr = new T[this->arraySize];
+  for(int count = 0; count < this->arraySize; count++) {
+    this->aptr[count] = obj[count];
+  }
+}
+
+/**************************************
+** Destructor: deallocates the dynamically allocated array
+****************************************/
+template <class T>
+SimpleVector<T>::~SimpleVector() {
+  delete []aptr; 
+}
+
+
+
+/**************************************
+** Overload [] operator.
+** The argument is a subscript.
+** This function returns a reference to the element
+** in the array indexed by subscript
+****************************************/
+template <class T>
+T &SimpleVector<T>::operator[](int sub) {
+  if(sub < 0 || sub >= this->arraySize) {
+    throw IndexOutOfRange(sub);
+  }
+  return this->aptr[sub];
+}
+
+/**************************************
+** Print a;; tje entries is the array
+****************************************/
+template <class T>
+void SimpleVector<T>::print() const {
+  for(int i = 0; i < this->arraySize; i++) {
+    cout << this->aptr[i] << " " ;
+  }
+  cout << endl;
+}
+
+
+/***********************************
+** Operator Overloading
+** each of the two objects involved has its own 
+** separate copy of the memory that its own pInteger points to.  
+** The =operator should return a reference to the object 
+** pointed to by the this pointer. 
+************************************/
+
+// MyInteger& MyInteger::operator=(const MyInteger &right) {
+//   // Delete the memory stored the original pointer pointed to
+//   delete[] pInteger;
+
+//   pInteger = new int;
+//   // Assign the value of right pointer pointed to for pointer in current class
+//   *pInteger = *(right.pInteger);
+//   return *this;
+// }
+
+
+int main() {
+  const int SIZE = 10;
+  SimpleVector<int> intTable(SIZE);
+  SimpleVector<double> doubleTalbe(SIZE);
+
+  // Store Values in the array
+
+  for(int i = 0; i < SIZE; i++) {
+    intTable[i] = (i * 2);
+    doubleTalbe[i] = (i *2.14);
+  }  
+
+  // DIsplay the value in the arrays
+  cout << "Int Table:" << endl;
+  intTable.print();
+  cout << "Double Talbe:" << endl;
+  doubleTalbe.print();
+
+
+  // Use the build-in + operator on array elements
+  for(int i = 0; i < SIZE; i++) {
+    intTable[i] += 5;
+    doubleTalbe[i] += 2.0;
+  }  
+
+  // DIsplay the value in the arrays
+  cout << "Int Table:" << endl;
+  intTable.print();
+  cout << "Double Talbe:" << endl;
+  doubleTalbe.print();
+    
+  return 0;
+}
+```
+
+***
+## Class Template and Inheritance
+
+
+
+***
