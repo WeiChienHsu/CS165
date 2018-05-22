@@ -46,6 +46,5 @@ int main() {
     std::cout << "Something went wrong but we don't know why!" << std::endl;
   }
 
-
   return 0;
 }

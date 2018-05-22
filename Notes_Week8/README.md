@@ -133,3 +133,25 @@ int main() {
 }
 ```
 ***
+
+## Exception
+Exceptions are used to signal errors or unexpected events that occur while a program is running.
+
+One way handling complex error conditions is with exception. An exception is a value or an object that signals an error. When error occurs, an exception is said to be thrown vecause control will pass to a part of the program that catches and handles that type of error.
+
+To handle an exception, a program must have a try/catch construct.
+
+```c++
+try {
+  // code here calls functions or obejct member
+  // functions that might throw an exception
+}
+
+catch(exception parameter) {
+  // code here handles the exception
+}
+```
+
+***
+
+## Object Oriented Exception
