@@ -154,4 +154,82 @@ catch(exception parameter) {
 
 ***
 
-## Object Oriented Exception
+## Object Oriented Exception 
+### Extracting Information from the Exception Class
+- Inner Exception Class for "OutOfRange" with a public value constructoring by input value (Which could extract the information from user input)
+
+```c++
+#ifndef INTRANGE_HPP
+#define INTRANGE_HPP
+
+#include <iostream>
+using namespace std;
+
+class IntRange {
+  private:
+    int input; // For user input
+    int lower; // Lower limit of range
+    int upper; // Upper limit of range
+  
+  public:
+    // Exception class
+    class OutOfRange {
+      public:
+        int value;
+        OutOfRange(int);
+    };
+    // Member function
+    IntRange(int, int);
+    int getInput();  
+};
+
+#endif
+```
+
+- Define Inner Class in the cpp file
+- Define the getInput method-> if value out of boundary: THROW the ERROR(IntRange::OutOfRange(input))
+```c++
+#include "IntRange.hpp"
+#include <iostream>
+using namespace std;
+
+IntRange::IntRange(int low, int high) {
+  this->lower = low;
+  this->upper = high;
+}
+
+int IntRange::getInput() {
+  cin >> this->input;
+  if(this->input < this->lower || this->input > this->upper) {
+    throw IntRange::OutOfRange(input);
+  }
+  return this->input;
+}
+
+IntRange::OutOfRange::OutOfRange(int input) {
+    this->value = input;
+}
+```
+
+- Main Function
+```c++
+int main() {
+  IntRange range(5, 10);
+  int userValue;
+
+  cout << "Enter a value in the range 5 - 10: " << endl;
+  
+  try {
+    userValue = range.getInput();
+    cout << "You entered: " << userValue << endl;
+  }
+
+  catch(IntRange::OutOfRange e) {
+    cout << "That value " << e.value << " is our of range. \n";
+  }
+
+  cout << "End of the program \n";
+  return 0;
+}
+
+```
