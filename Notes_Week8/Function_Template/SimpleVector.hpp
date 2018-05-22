@@ -1,3 +1,6 @@
+#ifndef SIMPLEVECTOR_HPP
+#define SIMPLEVECTOR_HPP
+
 #include <iostream>
 #include <cstdlib>
 #include <memory>
@@ -22,3 +25,5 @@ class SimpleVector {
     T &operator[](int); // Overload [] operator
     void print() const; // Outputs the array elements
 };
+
+#endif
