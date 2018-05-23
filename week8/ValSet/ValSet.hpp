@@ -88,10 +88,11 @@ class ValSet {
     
     ValSet<T> operator+(const ValSet &);
     ValSet<T> operator*(ValSet &);
-    // ValSet<T> operator/(const ValSet &); // 剩一題！
+    ValSet<T> operator/(ValSet &);
 
-    void printSet() const; // Need to DELETE!!!!!!!
-    int getArraySize() const; // Need to DELETE!!!!!!!
+    // Testing Method
+    // void printSet() const; 
+    // int getArraySize() const; 
 };
 
 /**************************************
@@ -309,14 +310,13 @@ template <class T>
 std::vector<T> ValSet<T>::getAsVector() {
     std::vector<T> valVector;
     for(int i = 0; i < this->numberOfValue; i++) {
-      valVector.at(i) = this->aptr[i];
+      valVector.push_back(this->aptr[i]);
     }
-
     return valVector;
 }
 
 /**************************************
-** overloaded + operator 有錯
+** overloaded + operator 
 ** returns a new ValSet that is the union of its two operands
 ** (contains all and only those values that were in either ValSet)
 ****************************************/
@@ -406,22 +406,66 @@ ValSet<T> ValSet<T>::operator*(ValSet & right) {
 ** (contains all and only those values that were in one ValSet or the other, 
 ** but not both)
 ****************************************/
-// template <class T>
-// ValSet<T> ValSet<T>::operator/(const ValSet &right) {
+template <class T>
+ValSet<T> ValSet<T>::operator/(ValSet &right) {
+  // Intialize temp array to hold the original array
+  T *temp_aptr = new T[this->curArraySize];
 
+  // Copy the values to the temp array
+  for(int i = 0; i < this->numberOfValue; i++) {
+    temp_aptr[i] = this->aptr[i];
+  }
+
+  // Allocate the old array and Reinitialize it
+  // with a larger size (this->currentArraySize + right->currentArraySize)
+  delete [] this->aptr;
+  this->aptr = new T[this->numberOfValue + right.numberOfValue];
+
+  // Intialize the counter
+  int count = 0;
+
+  // copying the contents of the old array 
+  // and added array into the new array
+  for(int i = 0; i < this->numberOfValue; i++) {
+
+    if(right.contains(temp_aptr[i])) {
+      // Deduplicated: Remove the same element in right array
+      // remove() method will update the new numberOfValue in the right array
+      right.remove(temp_aptr[i]);
+      continue;
+    }
+
+    this->aptr[count] = temp_aptr[i];
+    count++;
+  }
+
+ 
+  // Loop through the rest of elements in right array 
+  for(int i = 0; i < right.numberOfValue; i++) {
+    this->aptr[count] = right.aptr[i];
+    count++;
+  }
+
+  // Update the number Of Value in the new union array
+  this->numberOfValue = count;
+
+  // Return a ValSet by Copy constructor 
+  return ValSet(*this);
+}
+
+
+/**************************************
+** Testing Method
+****************************************/
+
+// template <class T>
+// void ValSet<T>::printSet() const {
+//   for(int i = 0; i < this->numberOfValue; i++) {
+//     std::cout << this->aptr[i] << std::endl;
+//   }
 // }
 
-
-
-
-template <class T>
-void ValSet<T>::printSet() const {
-  for(int i = 0; i < this->numberOfValue; i++) {
-    std::cout << this->aptr[i] << std::endl;
-  }
-}
-
-template <class T>
-int ValSet<T>::getArraySize() const {
-  return this->curArraySize;
-}
+// template <class T>
+// int ValSet<T>::getArraySize() const {
+//   return this->curArraySize;
+// }
