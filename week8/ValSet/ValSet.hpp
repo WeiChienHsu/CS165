@@ -87,7 +87,7 @@ class ValSet {
     std::vector<T> getAsVector();
     
     ValSet<T> operator+(const ValSet &);
-    ValSet<T> operator*(const ValSet &);
+    ValSet<T> operator*(ValSet &);
     // ValSet<T> operator/(const ValSet &); // 剩一題！
 
     void printSet() const; // Need to DELETE!!!!!!!
@@ -316,7 +316,7 @@ std::vector<T> ValSet<T>::getAsVector() {
 }
 
 /**************************************
-** overloaded + operator
+** overloaded + operator 有錯
 ** returns a new ValSet that is the union of its two operands
 ** (contains all and only those values that were in either ValSet)
 ****************************************/
@@ -341,9 +341,19 @@ ValSet<T> ValSet<T>::operator+(const ValSet &right) {
     this->aptr[i] = temp_aptr[i];
   }
 
-  for(int i = this->numberOfValue; i < this->numberOfValue + right.numberOfValue; i++) {
-    this->aptr[i] = right.aptr[i];
+  // Intialize the counter from numberOfValue in the original Array
+  int count = this->numberOfValue;
+  // Loop through the right array and avoid the same element
+  for(int i = 0; i < right.numberOfValue; i++) {
+    if(this->contains(right.aptr[i])){
+      continue;
+    }
+    this->aptr[count] = right.aptr[i];
+    count++;
   }
+
+  // Update the number Of Value in the new union array
+  this->numberOfValue = count;
 
   // Return a ValSet by Copy constructor 
   return ValSet(*this);
@@ -356,7 +366,7 @@ ValSet<T> ValSet<T>::operator+(const ValSet &right) {
 ** (contains all and only those values that were in both ValSets)
 ****************************************/
 template <class T>
-ValSet<T> ValSet<T>::operator*(const ValSet & right) {
+ValSet<T> ValSet<T>::operator*(ValSet & right) {
   // Intialize temp array to hold the original array
   T *temp_aptr = new T[this->curArraySize];
 
@@ -374,14 +384,15 @@ ValSet<T> ValSet<T>::operator*(const ValSet & right) {
 
   // Search for the value that exists in both ValSets
   for(int i = 0; i < this->numberOfValue; i++) {
-    for(int j = 0; j < right.numberOfValue; j++ ) {
       // If value exits in Both ValSets, Add it into current Array
-      if(temp_aptr[i] == right.aptr[j]) {
-        this->aptr[count] = right.aptr[j];
+      if(right.contains(temp_aptr[i])) {
+        this->aptr[count] = temp_aptr[i];
         count++;
       }
-    }
   }
+
+  // Update the number Of Value in the new union array
+  this->numberOfValue = count;
 
   // Return a ValSet by Copy constructor 
   return ValSet(*this);
