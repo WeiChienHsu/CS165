@@ -37,6 +37,8 @@ SimpleVector<T>::~SimpleVector() {
 
 
 
+
+
 /**************************************
 ** Overload [] operator.
 ** The argument is a subscript.

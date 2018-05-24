@@ -523,7 +523,40 @@ int main() {
 
 ***
 ## Class Template and Inheritance
+- Inheritance can be applied to class templates.
+- Add a SearchableVector inheried from SimpleVector.
 
+```c++
 
+```
 
 ***
+## Array Dynamic Allocation
+I am trying to get this function to create anew array to be 2x the size of the array argument, copy the contents into the new array, and for the second half of the array, create new values by doing 2*the values in the first half of the array, then delete the original array. Repeat this process for the specified number of times, then return the new array. 
+
+```c++
+int *ArrayDynamicAllocation(int array[], int size, int number)
+{
+   int *new_array = NULL;
+   int *tmp_array = new int[array.length()];
+   for(int k=0; k<array.length(); k++)//Initial array copying.
+       tmp_array[k] = array[k];
+
+   for(int i=0; i<number; i++)//Array range 0 to n-1
+   {
+      new_array = new int[size*2];
+      for(int j=0; j<size; j++)//Array range 0 to n-1
+      {
+         new_array[j]=tmp_array[j];
+         new_array[j+size]=2*tmp_array[j];
+      }
+      delete[] tmp_array //Deleting old array
+      size=size*2; 
+      tmp_array = new int[size] //Allocating memory for next iteration
+      for(int k=0; k<size; k++)
+        tmp_array[k] = new_array[k];//Copying array for next iteration
+  }
+  delete[] tmp_array;// To free memory
+  return new_array;
+};
+```
