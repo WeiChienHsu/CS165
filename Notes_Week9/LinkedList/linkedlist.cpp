@@ -20,14 +20,15 @@ int main() {
   secondPtr->value = 12.5;
   head->next = secondPtr;
 
+  // Create Third Node with 10
+  ListNode *thirdPtr = new ListNode;
+  thirdPtr->next = nullptr;
+  thirdPtr->value = 10.0;
+  head->next->next = thirdPtr;
+
   // Print 
   cout << "First item is " << head->value << endl;
   cout << "Second item is " << head->next->value << endl;
-  cout << "\n";
-  cout << "Address of head Pointer: " << &head << endl;
-  cout << "Address of head Pointer point to: " << head << endl;
-  cout << "is Equal to 'Address of First Value': " << &head->value << endl;
-  cout << "The pointer in the First Node is loacted nearby the Value: " << &head->next << endl;
-  cout << "is Equal to 'Address of First Value': " << &head->next->value << endl;
+  cout << "Third item is " << head->next->next->value << endl;
   return 0;
 }
