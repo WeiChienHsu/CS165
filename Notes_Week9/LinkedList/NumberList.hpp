@@ -1,5 +1,5 @@
-#include <iostream>
-using namespace std;
+#ifndef NUMBERLIST_HPP
+#define NUMBERLIST_HPP
 
 class NumberList {
   protected:
@@ -7,19 +7,19 @@ class NumberList {
     struct ListNode {
       double value;
       ListNode *next;
-      ListNode(double value, ListNode *next = nullptr) {
-        this->value = value;
-        this->next = next;
-      }
+      ListNode(double, ListNode*);
     };
+    
     ListNode *head;
   
   public:
-    NumberList() { head = nullptr; }
+    NumberList();
     ~NumberList();
+    NumberList(const NumberList &);
     void add(double);
     void remove(double);
     void displayList() const;
-}
+};
 
+#endif
 
