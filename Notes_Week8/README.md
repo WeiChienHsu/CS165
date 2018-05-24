@@ -560,3 +560,86 @@ int *ArrayDynamicAllocation(int array[], int size, int number)
   return new_array;
 };
 ```
+
+***
+# Standard Template Library
+
+Container: a class that stores data and organizes it in some fashion. 
+Iterator: An object that works like a pointer and allows access to items stored in container.
+
+## Sequential Container (Vector, Deque, List)
+Order the items by their position within the container.
+
+### Vector
+A sequence of items implemented as an array that can automatically grow as needed during program execution. Items can be efficiently "added and removed from the vector at its end". Insertions and removals from the middle or beginneing of the vector are not as efficient.
+
+### Deque
+A sequence of items that has a front and back. Items can be efficiently added or removed from the front and back. Insertions and removals in the middle of deque are not as efficient.
+
+### List
+A sequence of items that allows quick additions and removals from any position.
+
+
+## Associative Container(Set, Map)
+Associate a key with each item stored and then use the key to tetrieve the stored item. A telephone book is an example of an associative containet.
+
+### Set
+Stores a set of key. No dupliacte "values" are allowed.
+
+### Map
+Each key is associated with an unique data element, and duplicate "keys" are not permitted.
+
+## Iterators
+Used to access items stored in containers. A typical iterator is an objet of a class declared inside a container class. The irerator overloads pointer operators such as the increment operator ++, the decremment operator --, and the dereferencing operator * in order to provide pointer-like behavior.
+
+```c++
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+template <class T>
+void print(T begin_iter, T end_iter) {
+  auto iter = begin_iter;
+  while(iter != end_iter) {
+    cout << *iter << " ";
+    iter++;
+  }
+  cout << endl;
+}
+
+int main() {
+  string names[3];
+  names[0] = "Kevin";
+  names[1] = "Kevin!!";
+  names[2] = "Peter";
+  print(begin(names), end(names));
+
+  vector<int> vec;
+  vec.push_back(10);
+  vec.push_back(20);
+  vec.push_back(30);
+
+  print(begin(vec), end(vec));
+  
+  return 0;
+}
+```
+
+***
+
+### Algorithm (STL)
+Provided by the STL are implemented as function templates and perform various operations on elements of containers.
+- bool binary_search(iter1, iter2, value)
+- int count(iter1, iter2, value)
+- for_each(iter1, iter2, func)
+- find(iter1, iter2, value)
+
+```c++
+  vector<int> vec;
+  vec.push_back(20);
+  vec.push_back(10);
+  random_shuffle(vec.begin(), vec.end());
+  for_each(vec.begin(), vec.end(), printVec);
+```
