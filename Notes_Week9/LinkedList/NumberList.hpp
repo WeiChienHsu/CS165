@@ -1,5 +1,7 @@
 #ifndef NUMBERLIST_HPP
 #define NUMBERLIST_HPP
+#include <vector>
+#include <iostream>
 
 class NumberList {
   protected:
@@ -21,6 +23,7 @@ class NumberList {
     void displayList() const;
     bool setNodeVal(int, double);
     int positionOf(double);
+    std::vector<double> getAsVector();
 };
 
 #endif

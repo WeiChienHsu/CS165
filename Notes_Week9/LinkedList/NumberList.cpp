@@ -173,8 +173,18 @@ int NumberList::positionOf(double target) {
 
 /*****************************
  * getAsVector()
- * returns a vector with the same size, values and order as the StringList.
+ * returns a vector with the same size, values and order as the NumberList.
 ******************************/
+std::vector<double> NumberList::getAsVector() {
+  std::vector<double> vec;
+  ListNode *nodePtr = head;
+
+  while(nodePtr != nullptr) {
+    vec.push_back(nodePtr->value);
+    nodePtr = nodePtr->next;
+  }
+  return vec;
+}
 
 
 
@@ -183,10 +193,14 @@ int main() {
   list.add(10);
   list.add(20);
   list.add(30);
-  list.setNodeVal(2,40);
-  // list.displayList();
-  
-  std::cout << list.positionOf(40) << std::endl;
+  // list.setNodeVal(2,40);
+  list.displayList();
+
+  std::vector<double> vec = list.getAsVector();
+
+  for(int i = 0; i < vec.size(); i++) {
+    std::cout << vec.at(i) << std::endl;
+  }
     
 
   // NumberList list3;
