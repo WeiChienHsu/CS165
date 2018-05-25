@@ -37,9 +37,9 @@
 /**************************************
 ** Struct ListNode Constructor
 ** Initialize the ListNode with value and 
-** default pointer to nullptr
+** default pointer to NULL
 **************************************/
-StringList::ListNode::ListNode(std::string val, ListNode *next = nullptr) {
+StringList::ListNode::ListNode(std::string val, ListNode *next = NULL) {
   this->value = val;
   this->next = next;
 }
@@ -49,8 +49,8 @@ StringList::ListNode::ListNode(std::string val, ListNode *next = nullptr) {
 ** initialize a new empty StringList object.
 ****************************************/
 StringList::StringList() {
-  // Let the head pointer points to nullptr
-  this->head = nullptr;
+  // Let the head pointer points to NULL
+  this->head = NULL;
 }
 
 /**************************************
@@ -61,8 +61,8 @@ StringList::StringList() {
 StringList::StringList(const StringList &obj) {
   // If the head pointer directly points to NULL
   // The copied head pointer would point to it as well
-  if(obj.head == nullptr) {
-    this->head = nullptr;
+  if(obj.head == NULL) {
+    this->head = NULL;
   } else {
     // Initialize copied head pointer pointing to the first Node
     // The value is pointed by the object's head pointer
@@ -79,7 +79,7 @@ StringList::StringList(const StringList &obj) {
     //         for the object)
     // Step2: move the objCur to the next Node
     // Step3: move the copyCur to the next Node
-    while(objCur->next != nullptr) {
+    while(objCur->next != NULL) {
       copyCur->next = new ListNode(objCur->next->value);
       objCur = objCur->next;
       copyCur = copyCur->next;
@@ -95,7 +95,7 @@ StringList::StringList(const StringList &obj) {
 StringList::~StringList() {
   // Start at the the head of List
   ListNode *nodePtr = head;
-  while(nodePtr != nullptr) {
+  while(nodePtr != NULL) {
     // garbage pointer keeps tracking of node to be deleted
     ListNode *garbage = nodePtr;
     nodePtr = nodePtr->next;
@@ -112,14 +112,14 @@ StringList::~StringList() {
 void StringList::add(std::string value) {
   // If the head pointer directly points to NULL
   // Add the Node next to the Head
-  if(this->head == nullptr) {
+  if(this->head == NULL) {
     this->head = new ListNode(value);
   } else {
     // The List is not empty
     // Use Nodeptr to traverse the List and find the last Node
     // Add that value next to the Last Node
     ListNode *nodePtr = head;
-    while(nodePtr->next != nullptr) {
+    while(nodePtr->next != NULL) {
       nodePtr = nodePtr->next;
     }
     // Now the nodePtr points to the Last Node
@@ -139,8 +139,8 @@ int StringList::positionOf(std::string target) {
   int pos = 0;
 
   // Loop through the List and find if the target is inside the list
-  // If the head point to nullptr, return -1
-  while(nodePtr != nullptr) {
+  // If the head point to NULL, return -1
+  while(nodePtr != NULL) {
     if(nodePtr->value == target) {
       // Return the current position
       return pos;
@@ -150,7 +150,7 @@ int StringList::positionOf(std::string target) {
   }
 
   // Not find the target number 
-  // or the head directly points to the nullptr
+  // or the head directly points to the NULL
   return -1;
 }
 
@@ -165,20 +165,20 @@ bool StringList::setNodeVal(int pos, std::string newVal) {
   // Create a Node Pointer for traversal
   ListNode *nodePtr = head;
 
-  // If the head pointer points to nullptr, directly return false
+  // If the head pointer points to NULL, directly return false
   // Since the position will definitely >= 0 node
   
-  if(nodePtr == nullptr) { return false; }
+  if(nodePtr == NULL) { return false; }
 
   // Keep Checking if the pos is out of our boundry in the list
   while(count != pos) {
     nodePtr = nodePtr->next;
     
-    // When the nodePtr equal to nullptr, it means
+    // When the nodePtr equal to NULL, it means
     // the argurment of position we passed is >= the 
     // Nodes we had in the List
 
-    if(nodePtr == nullptr) { return false; }
+    if(nodePtr == NULL) { return false; }
     count++;
   }
 
@@ -201,7 +201,7 @@ std::vector<std::string> StringList::getAsVector() {
 
   // While the node pointer didn't mean the last Node
   // Keep pushing the value pointed into the vector
-  while(nodePtr != nullptr) {
+  while(nodePtr != NULL) {
     vec.push_back(nodePtr->value);
     nodePtr = nodePtr->next;
   }
@@ -211,15 +211,15 @@ std::vector<std::string> StringList::getAsVector() {
 }
 
 // For Testing
-/**************************************
-** displayList():
-** Traversal(display) a sequence of all values
-** currently stored in the list.
-****************************************/
-void StringList::displayList() const {
-  ListNode *nodePtr = head; // Start at head of list
-  while(nodePtr != nullptr) {
-    std::cout << nodePtr->value << "  ";
-    nodePtr = nodePtr->next;
-  }
-}
+// /**************************************
+// ** displayList():
+// ** Traversal(display) a sequence of all values
+// ** currently stored in the list.
+// ****************************************/
+// void StringList::displayList() const {
+//   ListNode *nodePtr = head; // Start at head of list
+//   while(nodePtr != NULL) {
+//     std::cout << nodePtr->value << "  ";
+//     nodePtr = nodePtr->next;
+//   }
+// }
