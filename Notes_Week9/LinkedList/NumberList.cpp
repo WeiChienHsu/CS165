@@ -1,5 +1,6 @@
 #include "NumberList.hpp"
 #include <iostream>
+#include <vector>
 
 /*****************************
  * Struct ListNode Constructpt
@@ -118,14 +119,81 @@ void NumberList::remove(double number) {
   }
 }
 
+/*****************************
+ * setNodeVal(int, double)
+ * sets the value of the node at that position to the
+ * value of the string parameter.  
+ * If the position parameter is >= the number of nodes in the list, 
+ * the operation cannot be carried out and setNodeVal() should return false, 
+ * otherwise it should be successful and return true. 
+******************************/
+bool NumberList::setNodeVal(int index, double newVal) {
+  int count = 0;
+  ListNode *nodePtr = this->head;
+  // If the head points to nullptr, directly return false
+  if(nodePtr == nullptr) { return false; }
+
+  // Keep Checking if the index is out of our boundry in the list
+  while(count != index) {
+    nodePtr = nodePtr->next;
+    if(nodePtr == nullptr) { return false; }
+    count++;
+  }
+  // Update the new Value into the current pointed Node
+  nodePtr->value = newVal;
+  return true;
+}
+
+/*****************************
+ * positionOf(double)
+ * returns the (zero-based) position in the list for the first occurrence 
+ * of the parameter in the list, or -1 if that value is not in the list.
+******************************/
+int NumberList::positionOf(double target) {
+  // Create a Node pointer
+  ListNode *nodePtr = this->head;
+  // Initialize position as 0
+  int pos = 0;
+
+  // Loop through the List and find if the target is inside the list
+  // If the head point to nullptr, return -1
+  while(nodePtr != nullptr) {
+    if(nodePtr->value == target) {
+      // Return the current position
+      return pos;
+    }
+    pos++;
+    nodePtr = nodePtr->next;
+  }
+  // Not find the target number 
+  // or the head directly points to the nullptr
+  return -1;
+}
+
+
+/*****************************
+ * getAsVector()
+ * returns a vector with the same size, values and order as the StringList.
+******************************/
+
+
+
 int main() {
   NumberList list;
   list.add(10);
   list.add(20);
   list.add(30);
-  list.displayList();
+  list.setNodeVal(2,40);
+  // list.displayList();
   
-  NumberList list2(list);
-  list2.displayList();
+  std::cout << list.positionOf(40) << std::endl;
+    
+
+  // NumberList list3;
+  // std::cout << list3.setNodeVal(0, 20) << std::endl;
+  // list3.displayList();
+  
+  // NumberList list2(list);
+  // list2.displayList();
   return 0;
 }

@@ -19,6 +19,8 @@ class NumberList {
     void add(double);
     void remove(double);
     void displayList() const;
+    bool setNodeVal(int, double);
+    int positionOf(double);
 };
 
 #endif
