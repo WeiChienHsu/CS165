@@ -391,3 +391,232 @@ int main() {
 ```
 
 ***
+
+# Stacks
+
+Last In First Out. Like an array or a lnked list, a stack is a data structure that holds a sequence of elements. When a program retrieves elements from a stack, the last element inserted into the stack is the first one retrieved.
+
+## Application of Stacks
+Stacks are useful data structures for algorithm that work first with the last saved element of a series.
+Computer systems use stacks while executing programs. When a function is called, the computer stores the program's return address, the parameters to the function and the function's local variables on a stack. When the function returns, the local variables, parameters, and return address are removed form the stack.
+
+- Static Stacks: have a fix size and are implemented as arrays.
+- Dynamic Stacks: stack grows in size as needed and are implementted as linkedlist.
+
+### Operation
+- push: casue the value to be stored
+- pop: retrieves a value from the stack
+
+***
+## Static Stack
+
+### Member Variable
+- statckArray
+- capacity
+- top
+
+### Member funciton 
+- Constructor
+- push 
+- pop
+- isEmpty
+
+### Exception
+- OverFlow: push function announces the occurrence of an overflow exception
+- UnderFlow: pop funciton executes the statement
+
+
+```c++
+#include <iostream>
+
+class IntStack {
+  protected:
+    int *stactPtr;
+    int capacity;
+    int top;
+  public:
+    IntStack(int capacity);
+    ~IntStack();
+    void push(int value);
+    int pop();
+    bool isEmpty() const; 
+
+    class Overflow {};
+    class Underflow {};
+};
+
+IntStack::IntStack(int capacity) {
+  this->stactPtr = new int[capacity];
+  this->capacity = capacity;
+  this->top = 0;
+}
+
+IntStack::~IntStack() {
+  delete[] this->stactPtr;
+}
+
+void IntStack::push(int value) {
+  if(top == capacity) throw IntStack::Overflow();
+  stactPtr[top] = value;
+  top++;
+}
+
+bool IntStack::isEmpty() const {
+  return top == 0;
+}
+
+int IntStack::pop() {
+  if(isEmpty()) throw IntStack::Underflow();
+  top--;
+  return stactPtr[top];
+}
+```
+
+***
+## Dynamic Stack
+A dynamic stack is built on a linked list instead of on an array. A stack based on a linked list offeres two advantages over a stack based on an array.
+
+- There is no need to specify the starting size of the stack.(Simply start at empty linked list, then expands by one node each time a value is pushed)
+- Never be full! as long as the systemn has enough free moemory.
+
+### Implementaion
+The StackNode class is the data type of each node in the linked list. Because it is easy to add and remove items at the beginning of the list, we make the beginning of the linked list the top of the stack and use a pointer top to point to the first node in the list.
+
+The push funtion creates a new node whose value is the number to be push ed on the stack and whose successor pointer is the node that is currently the top of the stack and then make the newly created node the new top of the stack.
+
+```c++
+top = new StackNode(num, top)
+```
+
+```
+top -> 1
+push(2, top)
+top -> 2 -> 1
+
+top -> null
+push (2, top)
+top -> 2 -> null
+```
+- DynIntStack
+```c++
+#include <iostream>
+
+
+class DynIntStack
+{
+protected:
+  
+  struct StackNode
+  {
+    int value;
+    StackNode *next;
+    StackNode(int value, StackNode *next = nullptr) {
+      this->value = value;
+      this->next = next;
+    }
+  };
+  StackNode *top;
+
+public:
+  DynIntStack() { top = nullptr; }
+  ~DynIntStack();
+  void push(int);
+  int pop();
+  bool isEmpty() const;
+
+  class Underflow { };
+};
+
+DynIntStack::~DynIntStack()
+{
+  StackNode *garbage = top;
+  while(garbage != nullptr) {
+    top = top->next;
+    garbage->next = nullptr;
+    delete garbage;
+    garbage = top;
+  }
+}
+
+void DynIntStack::push(int value)
+{
+  top = new StackNode(value, top);
+}
+
+int DynIntStack::pop()
+{
+  StackNode *temp;
+  int num;
+
+  if(DynIntStack::isEmpty()) { throw Underflow(); }
+  else {
+    num = top->value;
+    temp = top;
+    top = top->next;
+    delete temp;
+  }
+  return num;
+}
+
+bool DynIntStack::isEmpty() const{
+  return this->top == nullptr;
+}
+```
+- Main Function
+```c++
+  DynIntStack dynStack;
+  dynStack.push(10);
+  std::cout << dynStack.pop() << std::endl;
+  std::cout << dynStack.isEmpty() << std::endl;
+  
+  try {
+    std::cout << dynStack.pop() << std::endl;
+  } catch(DynIntStack::Underflow) {
+     std::cout << "Stack is Empty!" << std::endl;
+  }
+```
+
+***
+## STL Stack Container
+
+The purpose of the new interface is to make it more convenient to use the class for specialized tasks. Because the stack container is used to adapt the list, vector, and deque continers, it is often referred to as a container adapter.
+
+```c++
+stack<int, vector<int>> //Vector stack
+stack<int, list<int>> // List Stack
+stack<int> iStack // Deque stack (the default)
+```
+
+
+### Mumber Function
+- empty()
+- pop(): removes tje element at the top of the stack (The pop funciton in the stack does not retrieve the value from the top of the stack; it only removes it. To retrieve the value, you must call the top function first)
+- push()
+- size()
+- top(): Return a reference to the element at the top of the stack.
+
+
+```c++
+#include <iostream>
+#include <stack>
+
+int main() {
+  std::stack<double> dStack;
+
+  for(double x = 2; x < 9; x++) {
+    std::cout << "Pushing " << x << std::endl;
+    dStack.push(x);
+  }
+
+  std::cout << "The size of the stack is: ";
+  std::cout << dStack.size() << std::endl;
+
+  while(!dStack.empty()) {
+    std::cout << dStack.top() << std::endl;
+    dStack.pop();
+  }
+  return 0;
+}
+```
+***
+# Queue
