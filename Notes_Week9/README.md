@@ -619,4 +619,27 @@ int main() {
 }
 ```
 ***
+## Assignment 9
+- strtok()初次使用时，需要传入str，将str的首个字符位置作为查找的起始位置，并返回不包含dilimiters定义字符的子串；后续使用传入NULL，并使用上一次查找到子串的尾部位置的下一个位置作为查找起始位置，继续查找。
+```c++
+char *token = std::strtok(userEq, " ");
+token = std::strtok(nullptr, " ");
+```
+
+```c++
+  std::string str = "25 12 7 - 2 * /";
+  char* chr = strdup(str.c_str());  // {[2],[5],[ ],...}
+
+  char* token = std::strtok(chr, " "); // token points to "25"
+  std::cout << token << std::endl;
+  token = std::strtok(nullptr, " "); // Give a NULL and seperate by " ", token points to "12"
+  std::cout << token << std::endl;
+```
+
+- atof()将字符串转为double类型
+```c++
+double number = atpf(token)
+```
+
+***
 # Queue
