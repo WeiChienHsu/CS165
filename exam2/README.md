@@ -35,6 +35,7 @@ void displayPassByReference(int *arr, int size) {
   }
 ```
 
+
 ***
 
 #### Chapter 12 C-strings (沒上過)
@@ -48,11 +49,29 @@ void displayPassByReference(int *arr, int size) {
 - using pointers
 - dynamic memory allocation
 
+```c++
+void callback() {
+  std::cout << "Call Back Function we called! " << std::endl;
+}
+
+void B(void (*ptr)()) {
+  ptr(); // Pass a function into the funciton by using pointer ponints to funciton
+}
+
+int main() {
+  B(callback);
+  return 0;
+}
+```
+
 ***
 
 #### Chpater 9 Searching Sorting and Alogrithm Analysis
 - searching and sorting
 - time complexity and big-O notation
+
+
+
 
 ***
 
