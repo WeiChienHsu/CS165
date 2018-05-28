@@ -145,7 +145,17 @@ void swap(int arr[], int i, int j) {
   arr[j] = temp;
 }
 ```
+```c++
+bool isDecreasing(int *arr, int size) {
+  if(size == 1) return true;
 
+  if(arr[size - 1] < arr[size - 2]) {
+    return true && isDecreasing(arr, size - 1);
+  } else {
+    return false;
+  }
+}
+```
 
 ***
 
