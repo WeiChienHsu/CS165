@@ -172,6 +172,39 @@ bool isDecreasing(int *arr, int size) {
 - protected (an access modifier)
 - overriding base class functions
 
+```c++
+class NumberArray {
+  private:
+    int *ptr;
+    int arraySize;
+  public:
+    NumberArray(int size, int value) {
+      this->arraySize = size;
+      this->ptr = new int[this->arraySize];
+      setValue(value);
+    }
+
+    NumberArray(const NumberArray &obj) {
+      this->arraySize = obj.arraySize;
+      this->ptr = new int[this->arraySize];
+      for(int i = 0; i < this->arraySize; i++){
+        ptr[i] = obj.ptr[i];
+      }
+    }
+
+    void printValue() {
+       for(int i = 0; i < this->arraySize; i++) {
+        std::cout << ptr[i] << std::endl;
+      }     
+    }
+
+    void setValue(int value) {
+      for(int i = 0; i < this->arraySize; i++) {
+        ptr[i] = value;
+      }
+    }
+};
+```
 ***
 
 #### Chpater 15 Polymorphism and Virtual functions
