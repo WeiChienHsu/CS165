@@ -192,6 +192,18 @@ class NumberArray {
       }
     }
 
+    NumberArray& operator=(const NumberArray &obj) {
+      if(this != &obj) {
+        delete []ptr;
+      }
+      this->arraySize = obj.arraySize;
+      ptr = new int[this->arraySize];
+      for(int i = 0; i < this->arraySize; i++) {
+        ptr[i] = obj.ptr[i];
+      }
+      return *this;
+    }
+
     void printValue() {
        for(int i = 0; i < this->arraySize; i++) {
         std::cout << ptr[i] << std::endl;
@@ -204,7 +216,10 @@ class NumberArray {
       }
     }
 };
+
 ```
+
+
 ***
 
 #### Chpater 15 Polymorphism and Virtual functions
