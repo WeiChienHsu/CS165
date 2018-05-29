@@ -51,6 +51,7 @@ StringList::ListNode::ListNode(std::string val, ListNode *next = NULL) {
 StringList::StringList() {
   // Let the head pointer points to NULL
   this->head = NULL;
+  this->listSize = 0;
 }
 
 /**************************************
@@ -125,6 +126,7 @@ void StringList::add(std::string value) {
     // Now the nodePtr points to the Last Node
     nodePtr->next = new ListNode(value);
   }
+  this->listSize++;
 }
 
 /**************************************
@@ -160,6 +162,11 @@ int StringList::positionOf(std::string target) {
 ** to the value of the string parameter.
 ****************************************/
 bool StringList::setNodeVal(int pos, std::string newVal) {
+  // Check the index of position is valid
+  if(pos > this->listSize) {
+    return false;
+  }
+
   // Initialize conuter from 0
   int count = 0;
   // Create a Node Pointer for traversal
@@ -210,16 +217,16 @@ std::vector<std::string> StringList::getAsVector() {
   return vec;
 }
 
-// For Testing
-// /**************************************
-// ** displayList():
-// ** Traversal(display) a sequence of all values
-// ** currently stored in the list.
-// ****************************************/
-// void StringList::displayList() const {
-//   ListNode *nodePtr = head; // Start at head of list
-//   while(nodePtr != NULL) {
-//     std::cout << nodePtr->value << "  ";
-//     nodePtr = nodePtr->next;
-//   }
-// }
+For Testing
+/**************************************
+** displayList():
+** Traversal(display) a sequence of all values
+** currently stored in the list.
+****************************************/
+void StringList::displayList() const {
+  ListNode *nodePtr = head; // Start at head of list
+  while(nodePtr != NULL) {
+    std::cout << nodePtr->value << "  ";
+    nodePtr = nodePtr->next;
+  }
+}

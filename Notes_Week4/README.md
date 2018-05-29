@@ -27,8 +27,7 @@ Remember that when you pass an array to a function, you're really passing the ad
 
 ## Chapter 10
 
-- The most important thing to understand about pointers is that they are still just variables.  An int variable is a little piece of memory set aside to hold an integer value.  A pointer-to-int is a little piece of memory set aside to hold the address of an int variable.  When a description says that a pointer "points to" a variable, it just means that the pointer is storing the address of that variable.  When you "dereference" a pointer, you are just saying that instead of using the pointer, you're using the variable whose address is stored in the pointer.
-You should not normally need to use pointer arithmetic, but you should still understand it.
+- The most important thing to understand about pointers is that they are still just variables.  An int variable is a little piece of memory set aside to hold an integer value.  A pointer-to-int is a little piece of memory set aside to hold the address of an int variable.  When a description says that a pointer "points to" a variable, it just means that the pointer is storing the address of that variable.  When you "dereference" a pointer, you are just saying that instead of using the pointer, you're using the variable whose address is stored in the pointer. You should not normally need to use pointer arithmetic, but you should still understand it.
 
 - Be careful not to confuse the use of '&' for passing by reference with its use as the "address of" operator.  They are two separate things.  When you see it on the right hand of an assignment, or as an argument in a function call, it means "address of".  When you see it in the parameter list of a function header, it means that you're passing by reference.
 
@@ -147,7 +146,7 @@ pointer 的地址: 0x7ffee58578f0
 
 ## Why pointer varaible is a strong type
 - We don't use pointer just for storing the address in memory.
-- We also use piinters to dereference these address so we can access or modify these address.
+- We also use pointers to dereference these address so we can access or modify these address.
 - Datatype have different size, for 32bit device, int stored in 4 byte, char stored in 1 byte, float stroed in 4 byte
 - If we define a int pointer, when we dereference that address, the machien knows that it needs to look up from this memory to next 3 address for a real value.
 
@@ -207,6 +206,7 @@ C++中，陣列變數會有陣列型別和大小的資訊，所以要宣告和�
 如果變數名稱外沒有小括號，編譯器會將型別和*合在一起解讀成記錄指標的陣列
 - 格式：型別* 變數名稱 [大小] = 陣列名稱;
 
+
 ## Function and Pointer
 - Since if we use a function, all local values or variables will be stored in a separated Stack in the memory.
 - We could pass an address of the variable as a argument to a pointer in another function.
@@ -240,6 +240,7 @@ int main() {
   return 0;
 }
 ```
+
 ### Pass an array as an argument into FUNCTION
 - When compiler see a fucntion as argument, it doesn't copy whole array.
 - It just creates a pointer variable by the same name instead of creating the whole array
@@ -359,7 +360,6 @@ The memory that is assigned to a program or application, the typical architrctur
 - Pointer's address save in the stack and points to the array stored in Heap(which assumes from 50 to 130)
 
 
-## Memory Leak 
 
 ***
 
@@ -367,7 +367,7 @@ The memory that is assigned to a program or application, the typical architrctur
 Notice also that there is no size declarator inside the brackets of nums. This is because nums is not actually an array - it's a special variable taht accepts the address of an array. When an entire array is passed to a fuction, it's not passed by value. Instead, only the starting memory address of the array is passed. This is similar to passing a variable to a function by reference, except that in this case no& is used.
 
 ```c++
-void showValue(int nums[]m int size) {
+void showValue(int nums[] int size) {
   
 }
 ```

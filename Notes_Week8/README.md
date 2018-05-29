@@ -235,6 +235,7 @@ int main() {
 ```
 
 ***
+
 ## Static Function
 
 The this pointer cannot be used in a static member function since static member function are not called through any instance of their class. Moreover, a static member function cannot access an instance member of its class unless it specifies what instance the member belongs to.
@@ -306,6 +307,7 @@ void swapAB(T &a, T &b) {
 swap(a, b);
 ```
 ***
+
 ## Operators in Function Template
 
 ```c++

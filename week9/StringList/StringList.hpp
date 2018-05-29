@@ -40,7 +40,10 @@ class StringList {
     int positionOf(std::string);
     bool setNodeVal(int, std::string);
     std::vector<std::string> getAsVector();
-    // void displayList() const; // For testing
+    void displayList() const; // For testing
+  
+  private:
+    int listSize;
 };
 
 #endif

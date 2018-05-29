@@ -52,7 +52,7 @@ MyInteger::MyInteger(const MyInteger &obj){
 ** object is destroyed.
 ************************************/
 MyInteger::~MyInteger() {
-  delete []pInteger;
+  delete pInteger;
   pInteger = NULL;
 }
 
@@ -67,7 +67,7 @@ MyInteger::~MyInteger() {
 
 MyInteger& MyInteger::operator=(const MyInteger &right) {
   // Delete the memory stored the original pointer pointed to
-  delete[] pInteger;
+  delete pInteger;
 
   pInteger = new int;
   // Assign the value of right pointer pointed to for pointer in current class

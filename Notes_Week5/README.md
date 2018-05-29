@@ -261,7 +261,7 @@ Algorithm in this class run logarithmic time. A huge increase in the size of the
 Algorithm in this class run in linear time. Any increase in the size of the problem results in a slight increase in the running time of the algorithm. Sequential search that make single pass, or a constant number of passes, over their input.
 
 ### O(nlogn)
-The average case complexity of Quicksoer and MergeSort.
+The average case complexity of QuickSort and MergeSort.
 
 ### O(n^2)
 Quadratic time. The performance is characteristic of algorithms that make multiple passes over the input data using two nested loops. The worst-case complexity funcitons of bubble sort, selection sort and QuickSort all lie in this case.
