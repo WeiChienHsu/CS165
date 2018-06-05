@@ -45,10 +45,27 @@
 #ifndef CFBOARD_HPP
 #define CFBOARD_HPP
 
-enum gameState {X_WON, O_WON, DRAW, UNFINISHED};
+enum GameStates {X_WON, O_WON, DRAW, UNFINISHED};
 
 class CFBoard {
+  private:
+    char playerBoard[6][7];
+    GameStates currentGameState;
+  public:
+    CFBoard(); // Default Constructor
+    CFBoard(char(*)[7]); // Constructor to initialize testing board
+    bool makeMove(int, char);
+    void updateGameState(int, int);
+    GameStates getGameState();
+    void printGameState(); // Print value of GameStates
+    void print(); // Print current board
+    // helper function
+    bool isFull();
+    bool DFSSearch(int, int, int, int);
 
+
+
+  
 };
 
 
