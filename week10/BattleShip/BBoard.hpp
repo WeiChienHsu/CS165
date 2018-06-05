@@ -25,3 +25,8 @@ If the attack is not a hit, you should record the attack in the bool array and r
 
 a method called allShipsSunk that returns true if all ships on the Board have been sunk, but returns false otherwise.
 *********************************************************************/
+#ifndef BBOARD_HPP
+#define BBOARD_HPP
+
+
+#endif
