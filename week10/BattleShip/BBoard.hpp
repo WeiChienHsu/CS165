@@ -50,21 +50,24 @@ but returns false otherwise.
 *********************************************************************/
 #ifndef BBOARD_HPP
 #define BBOARD_HPP
+
+#include <iostream>
 #include "Ship.hpp"
 
 class BBoard {
   private:
     bool attacksArray[10][10];
-    Ship * occupiedByShip[10][10];
+    Ship* occupiedByShip[10][10];
     int numberOfUnsunkShips;
   public:
     BBoard(); // Default Constructor
     bool getAttacksArrayElement(int, int);
-    Ship getShipsArrayElement(int, int);
+    Ship* getShipsArrayElement(int, int);
     int getNumShipsRemaining();
-    bool placeShip(Ship, int, int, char);
+    bool placeShip(Ship*, int, int, char);
     bool attack(int, int);
     bool allShipsSunk();
+    void printBoard();
 };
 
 #endif

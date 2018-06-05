@@ -20,6 +20,7 @@ getMethods for each data member. (getName, getLength, getDamage)
 a method called takeHit that increments a Ship's damage by one.
 
 *********************************************************************/
+#include "Ship.hpp"
 #include <iostream>
 #include <string>
 
@@ -38,7 +39,7 @@ Ship::Ship(std::string name, int l) {
 ** getName
 ** return the name
 **********************************************************/
-std::string getName() {
+std::string Ship::getName() {
   return this->name;
 }
 
