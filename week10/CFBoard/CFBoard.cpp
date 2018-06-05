@@ -87,20 +87,22 @@ bool CFBoard::makeMove(int col, char player) {
   // Modify the column
   int actualCol = col - 1;
   // Check if the game is unfinished
-  if(this->currentGameState == UNFINISHED) return false;
+  if(this->currentGameState != UNFINISHED) return false;
   // Check if the column is full (board[0][col] have been assigned)
   if(this->playerBoard[0][actualCol] != 'e') return false;
 
   // Place player's piece
-  int row;
-  while(this->playerBoard[row][actualCol] == 'e') {
+  int row = 0;
+  while(this->playerBoard[row][actualCol] == 'e'
+        && row < 6) {
     row++;
   } 
+
   // Assign the player choice into playerBoard
-  this->playerBoard[row][actualCol] = player;
+  this->playerBoard[row - 1][actualCol] = player;
   
   // Update GameState
-  updateGameState(row, actualCol);
+  updateGameState(row - 1, actualCol);
   return true;
 
 }
